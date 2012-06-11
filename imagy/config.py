@@ -29,4 +29,4 @@ IMAGE_EXTENSIONS = (
     )
    
 
-PROCESSED_LOC = 'optimized.p'
+PROCESSED_LOC = 'processed.p'

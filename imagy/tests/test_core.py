@@ -3,8 +3,12 @@
 import unittest
 from imagy.config import *
 from imagy.core import *
+from imagy.persistence import load as load_pers, processed
+print 'test', processed
 from tempfile import mktemp
 from path import path
+from tempfile import mktemp
+
 import logging
 logging.disable(logging.CRITICAL)
 
@@ -24,6 +28,8 @@ class TinyTestSuite(unittest.TestCase):
 
         self.images = dict((k, self.image_loc.joinpath(v)) for k, v in images.items())
         self.image_loc.copytree(self.tmp_image_loc)
+        self.d = processed
+        print 'set', self.d
 
     def tearDown(self):
         self.tmp_image_loc.rmtree()
@@ -66,6 +72,14 @@ class TinyTestSuite(unittest.TestCase):
 
     def test_make_path(self):
         self.assertFalse(make_path(__file__).exists())
+
+    def test_clear(self):
+        thing = 'asd'
+        self.d['set'].add(thing)
+        self.d.clear()
+        self.d.sync()
+        load_pers(self.file_loc)
+        self.assertFalse(thing in self.d['set'])
 
 if __name__ == '__main__':
     unittest.main()
