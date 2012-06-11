@@ -1,0 +1,12 @@
+cimagy.persistence
+PersistentSet
+p0
+((lp1
+tp2
+Rp3
+(dp4
+S'file_loc'
+p5
+S'optimized.p'
+p6
+sb.
