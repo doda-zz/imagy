@@ -22,11 +22,11 @@ You can instead also specifiy the image paths directly in `config.py` which alre
 Example
 -----------------
 
-`images/img.jog`
+`images/img.jpg`
 
 gets optimized, the original stays at
 
-`images/img-original.jog`
+`images/img-original.jpg`
 
 The algorithms used are stable (don't further modify files after multiple invocations), however by default Imagy keeps the original file. If you would not like to keep original images around set KEEP_ORIGINALS to False. 
 
