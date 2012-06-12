@@ -8,10 +8,10 @@ Instead of having to code up deamons, file watches and handle different file for
 Getting Started
 -----------------
 
+::
+    pip install imagy
 
-pip install imagy
-
-imagy /awesome/images/in/here/ /also/here/
+    imagy /awesome/images/in/here/ /also/here/
 
 That's it. Imagy's now running.
 
@@ -21,11 +21,11 @@ You can instead also specifiy the image paths directly in `config.py` which alre
 
 Example
 -----------------
+
 ::
-	images/img.jpg
+   images/img.jpg
 
 gets optimized, the original stays at::
-
      images/img-original.jpg
 
 The algorithms used are stable (don't further modify files after multiple invocations), however by default Imagy keeps the original file. If you would not like to keep original images around set KEEP_ORIGINALS to False. 
