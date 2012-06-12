@@ -1,7 +1,7 @@
 Imagy - make your website's images load upto 50% faster
 ===============
 
-As soon as an image in your site's media root gets created or modified, Imagy uses *lossless compression* on them, so your users never have to load unnecessary bytes. The algorithms used are lossless, so your images look the same, but load faster.
+Imagy uses *lossless compression* on them, so your users never have to load unnecessary bytes. The algorithms used are lossless, so your images look the same, but load faster.
 
 Instead of having to code up deamons, file watches and handle different file formats on your own, Imagy does all the work for you. Just point it at the folder(s) your images are stored in and it will automatically look for files that are created or changed and optimize them for size *without any visual impact*.
 
@@ -12,7 +12,7 @@ Getting Started
 
     pip install imagy
     
-    imagy /awesome/images/in/here/ /also/here/
+    imagy /awesome/images/in/here/
     
 
 That's it. Imagy's now running.
