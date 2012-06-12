@@ -9,9 +9,11 @@ Getting Started
 -----------------
 
 ::
-    pip install imagy
 
+    pip install imagy
+    
     imagy /awesome/images/in/here/ /also/here/
+    
 
 That's it. Imagy's now running.
 
@@ -25,19 +27,14 @@ Example
 
 ::
 
-    from bottle import route, run
+    images/img.jpg
 
-    @route('/hello/:name')
-    def hello(name):
-        return '<h1>Hello %s!</h1>' % name.title()
-
-    run(host='localhost', port=8080)
+gets optimized while the original stays at
 
 ::
-   images/img.jpg
 
-gets optimized, the original stays at::
-     images/img-original.jpg
+    images/img-original.jpg
+     
 
 The algorithms used are stable (don't further modify files after multiple invocations), however by default Imagy keeps the original file. If you would not like to keep original images around set KEEP_ORIGINALS to False. 
 
