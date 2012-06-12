@@ -22,6 +22,17 @@ You can instead also specifiy the image paths directly in `config.py` which alre
 Example
 -----------------
 
+
+::
+
+    from bottle import route, run
+
+    @route('/hello/:name')
+    def hello(name):
+        return '<h1>Hello %s!</h1>' % name.title()
+
+    run(host='localhost', port=8080)
+
 ::
    images/img.jpg
 
