@@ -4,6 +4,7 @@ from config import *
 from core import is_saught_after, compress_image
 import time
 import logging
+from path import path
 
 
 class CompressionHandler(FileSystemEventHandler):
@@ -29,6 +30,7 @@ class CompressionHandler(FileSystemEventHandler):
         self.handle_event(event)
 
 def start(dirs):
+    event_handler, observer = CompressionHandler(), Observer()
     scheduled = False
     for dir in dirs:
         if not path(dir).isdir():
@@ -40,7 +42,6 @@ def start(dirs):
         logging.error('No valid directories specified. Exiting')
         exit()
     
-    event_handler, observer = CompressionHandler(), Observer()
     observer.start()
     logging.info('waiting for files')
     try:
