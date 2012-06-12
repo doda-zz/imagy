@@ -30,16 +30,12 @@ class TinyTestSuite(unittest.TestCase):
         img = images['jpg']
         new = make_path(img)
         img.copy(new)
-        # fail if no visible optimization has occured in 10 seconds
+        # fail if no visible optimization has occured after 10 seconds
         for _ in range(10):
-            if img.size >= new.size:
-                
+            if img.size > new.size:
+                break
             time.sleep(1)
-        self.assertTrue(img.size >= new.size)
-        
-
-    def test_modify(self):
-        
+        self.assertTrue(img.size > new.size)
 
     def test_revert(self):
         ret = c(['imagy', '-r'])
