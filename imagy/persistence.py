@@ -1,24 +1,24 @@
 from config import PROCESSED_LOC
+from tempfile import mktemp
 import shelve
 
-processed = None
-set_up(processed)
-if processed is None:
-    processed = shelve.open(PROCESSED_LOC)
-    print processed
-
-def set_up(d):
-    if d is None:
-        processed = shelve.open(PROCESSED_LOC)
-        and 'set' in d:
-        return
-    d['set'] = set()
-    
-
-def reset(d):
-    d.clear()
-    set_up(d)
-
-def load(pth):
+def init(loc=None):
     global processed
-    processed = shelve.open(pth)
+    if loc is None:
+        loc = mktemp()
+    processed = shelve.open(loc)
+    for name, typ in ((
+            'set', set,
+            'orig', dict
+            )):
+        if not name in processed:
+            processed[name] = typ()
+    return processed
+
+def clear(processed):
+    processed.clear()
+    return get()
+
+# provide a persistent dict in a /tmp location by default
+# but allow to specify one in a less ephemeral
+processed = init()

@@ -1,7 +1,7 @@
 Imagy - make your website's images load upto 50% faster
 ===============
 
-Imagy uses *lossless compression* on them, so your users never have to load unnecessary bytes. The algorithms used are lossless, so your images look the same, but load faster.
+Imagy uses *lossless compression* on images, so your users never have to load unnecessary bytes. The algorithms used are lossless, so your images look the same, but load faster.
 
 Instead of having to code up deamons, file watches and handle different file formats on your own, Imagy does all the work for you. Just point it at the folder(s) your images are stored in and it will automatically look for files that are created or changed and optimize them for size *without any visual impact*.
 
@@ -24,12 +24,13 @@ You can instead also specifiy the image paths directly in `config.py` which alre
 Example
 -----------------
 
+As soon as the file
 
 ::
 
     images/img.jpg
 
-gets optimized while the original stays at
+gets created, Imagy optimizes while the original stays at
 
 ::
 
@@ -38,4 +39,12 @@ gets optimized while the original stays at
 
 The algorithms used are stable (don't further modify files after multiple invocations), however by default Imagy keeps the original file. If you would not like to keep original images around set KEEP_ORIGINALS to False. 
 
-In the background Imagy uses the awesome library smush which exposes a general interface to handle the various file types. 
+In the background Imagy uses the awesome library smush which exposes a general interface to handle the various file types.
+
+If you wish to stop using Imagy, run 
+
+::
+
+    imagy -r
+
+which will copy all original images back to their initial location

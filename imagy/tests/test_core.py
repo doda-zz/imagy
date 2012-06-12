@@ -17,19 +17,10 @@ class TinyTestSuite(unittest.TestCase):
     """Basic test cases."""
 
     def setUp(self):
-        self.image_loc = path('images/')
         self.tmp_image_loc = path('imagesTEMP/')
-        images = {
-            'png':'png.png',
-            'jpg':'jpg.jpg',
-            'gif':'gif.gif',
-            'gifgif':'gifgif.gif'
-            }
-
-        self.images = dict((k, self.image_loc.joinpath(v)) for k, v in images.items())
-        self.image_loc.copytree(self.tmp_image_loc)
+        self.images = test.images
+        test.image_loc.copytree(self.tmp_image_loc)
         self.d = processed
-        print 'set', self.d
 
     def tearDown(self):
         self.tmp_image_loc.rmtree()
