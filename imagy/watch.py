@@ -1,7 +1,7 @@
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from config import *
-from core import is_saught_after, compress_image
+from core import is_saught_after, handle_file
 import time
 import logging
 from path import path
@@ -9,9 +9,7 @@ from path import path
 
 class CompressionHandler(FileSystemEventHandler):
     def handle_event(self, event):
-        pth = path(event.src_path)
-        if is_saught_after(pth):
-            compress_image(pth)
+        handle_file(path(event.src_path))
     
     def on_created(self, event):
         if not OPTIMIZE_ON_CREATE:
