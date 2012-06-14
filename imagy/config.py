@@ -1,3 +1,8 @@
+from path import path
+ROOT = path(__file__).parent
+
+# ------------
+
 OPTIMIZE_ON_CREATE = True
 OPTIMIZE_ON_CHANGE = True
 
@@ -12,13 +17,10 @@ FILE_PATTERNS = (
 MAX_OPEN_FILEHANDLES = 0
 MAX_WAIT_OPEN_FILEHANDLES = 60
 
-# If set to False, Image will delete originals after deletion
+# If set to False, Imagy will delete originals after deletion
 KEEP_ORIGINALS = True
 
-# To keep things simple, Imagy defaults to holding no internal state as to what images it has already processed and simply looks if a respective original file already exists. Setting WATCH_ORIGINALS to False means 
-WATCH_ORIGINALS = True
-
-#this is inserted between the file base name and extension
+#this is inserted before the file extension, if the path already exists, append a 0 to the identifier and keep iterating until a free path is found
 ORIGINAL_IDENTIFIER = '-original'
 
 IMAGE_EXTENSIONS = (
@@ -28,5 +30,6 @@ IMAGE_EXTENSIONS = (
     'gif',
     )
    
+STORE_LOC = ROOT.joinpath('store.shelf')
 
-PROCESSED_LOC = 'processed.p'
+STRIP_JPG_META = True

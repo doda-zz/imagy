@@ -11,9 +11,7 @@ class CompressionHandler(FileSystemEventHandler):
     def handle_event(self, event):
         pth = path(event.src_path)
         if is_saught_after(pth):
-            logging.warning("Compressing %s", pth)
             compress_image(pth)
-            logging.warning("Compressed %s", pth)
     
     def on_created(self, event):
         if not OPTIMIZE_ON_CREATE:

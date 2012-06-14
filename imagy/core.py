@@ -4,7 +4,7 @@
 from path import path
 import sys
 import optparse
-from utils import make_path, same_file, PNGNQ_EXT
+from utils import make_path, same_file
 from datetime import datetime
 from persistence import store
 from smushing import smusher
@@ -16,7 +16,7 @@ from config import *
 import logging
 logging.basicConfig(level=logging.DEBUG)
 
-def revert(processed=processed):
+def revert():
     '''Move stored originals back to their initial location'''
     for pth, storedat in store.originals.iteritems():
         logging.info('Moving %s back to %s', storedat, pth)
@@ -25,8 +25,8 @@ def revert(processed=processed):
 def is_saught_after(pth):
     '''Determine if the file should be optimized'''
     pth = path(pth)
-    # pngnq has to output to the same folder
-    return not pth.isdir() and not pth.endswith(PNGNQ_EXT) and not pth in store.touched
+    print pth, 'in', store.touched,'?'
+    return not pth.isdir() and not pth in store.touched
 
 def initialize(pth):
     '''Run through the specified directories, optimizing any and all images'''
@@ -66,14 +66,13 @@ def compress_image(pth, keep_original=None):
 def main(opts, args):
     logging.info('Imagy started')
     if opts.clear:
-        cleared = len(processed)
-        processed.clear()
+        cleared = store.clear()
         logging.info('cleared %s file names' % cleared)
     elif opts.init:
         logging.info('looking for not yet optimized files')
         initialize()
     else:
-        store.load(opts.processed or PROCESSED_LOC)
+        store.load(opts.store or STORE_LOC)
         watch.start(args or FILE_PATTERNS)
 
 if __name__ == "__main__":
@@ -84,9 +83,9 @@ if __name__ == "__main__":
                       help='clear internal record of already optimized file names, (--revert relies on this')
     parser.add_option('-r', '--revert', action="store_true", default=False, help=revert.__doc__)
     parser.add_option('-f', action="store", dest="file_mode")
-    parser.add_option('-p', action="store", default='', dest="processed")
+    parser.add_option('-p', action="store", default='', dest="store")
     opts, args = parser.parse_args(sys.argv[1:])
     try:
         main(opts, args)
     finally:
-        processed.sync()
+        store.sync()
