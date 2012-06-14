@@ -1,6 +1,5 @@
 from path import path
 import filecmp
-from smush.utils import PNGNQ_EXT
 
 def make_path(p, sep='_'):
     '''Find a similar, yet unused path'''
@@ -14,4 +13,3 @@ def make_path(p, sep='_'):
 
 def same_file(p, pp):
     return filecmp.cmp(p, pp)
-    
