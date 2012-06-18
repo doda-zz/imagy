@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import unittest
-from .context import 
+from context import imagy
 from imagy.config import *
 from imagy.core import *
 from imagy.utils import mktemp
@@ -12,9 +12,7 @@ import imgtest
 import logging
 logging.disable(logging.CRITICAL)
 
-class TinyTestSuite(unittest.TestCase):
-    """Basic test cases."""
-
+class ImagyTestSuite(unittest.TestCase):
     def setUp(self):
         self.images = imgtest.images
         self.loc = imgtest.image_loc
