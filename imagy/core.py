@@ -123,8 +123,7 @@ def main(opts, args):
     logging.info('Ctrl-C to quit')
     store.load(opts.store_loc)
     dirs = map(path, args or FILE_PATTERNS)
-    # False is technincally false here~
-    nothing_has_run = None
+    nothing_has_run = None    # False is technincally false here~
 
     if opts.clear: clear()
     elif opts.u: dump()
@@ -144,7 +143,7 @@ if __name__ == "__main__":
     parser.add_option('-r', '--revert', action="store_true", default=False, help=revert.__doc__)
     parser.add_option('-n', '--run', action="store_true", default=False, help='Run the daemon'
                       'even though another option has been specified')
-    parser.add_option('-u', action="store_true", default=False)
+    parser.add_option('-u', action="store_true", default=False, help=dump.__doc__)
     parser.add_option('-d', action="store", default=STORE_LOC, dest="store_loc", help='the folder'
                       'within which internal storage resides')
     opts, args = parser.parse_args(sys.argv[1:])
