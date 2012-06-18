@@ -40,7 +40,7 @@ def _main(opts, args):
     if opts.run or nothing_has_run:
         watch.start(dirs)
     
-def main(opts, args):
+def main():
     try:
         _main(opts, args)
     finally:
