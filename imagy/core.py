@@ -3,7 +3,7 @@
 # all uppercase
 from config import *
 
-from utils import make_path, same_file, MARK, noop, dump
+from utils import make_path, same_file, MARK
 from store import store
 from smushing import compress_image
 import watch
@@ -14,7 +14,7 @@ def revert():
     '''Move stored originals back to their initial location'''
     # sort so we move as much as possible before asking what to do
     logging.info('reverting %s files', len(store.originals))
-    for pth, storedat in sorted(store.originals.items(), key=lambda (k,v):store.storedat[v]):
+    for pth, storedat in sorted(store.originals.items(), key=lambda (k, v):store.storedat[v]):
         move = True
         if store.storedat[storedat] == MARK:
             # the stored original has been modified, wat do?
@@ -39,7 +39,7 @@ def clear():
     logging.info('cleared %s file names from internal store', cleared)
 
 def handle_evented_file(pth):
-    '''decides what to do with the affected path'''
+    '''handles a file after an event has been received for it'''
     if not store.wants(pth):
         return
     if pth in store.storedat:
@@ -50,6 +50,7 @@ def handle_evented_file(pth):
         return handle_file(pth)
 
 def handle_file(pth):
+    '''optimizes an image and stores an original if KEEP_ORIGINALS is set'''
     logging.info('Compressing file %s', pth)
     if KEEP_ORIGINALS:
         if pth in store.originals:
@@ -100,6 +101,7 @@ def find_storage_space(pth, identifier=ORIGINAL_IDENTIFIER):
     return make_path(name + identifier + ext, sep='')
 
 def ignore_file(pth, store=store):
+    '''before touching a file we tell store how many events it should ignore for it'''
     if not watch.running:
         return
     print 'ignoring', pth

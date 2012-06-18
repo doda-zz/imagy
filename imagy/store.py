@@ -1,9 +1,4 @@
-from utils import mktemp
-from config import STORE_LOC
-
 from path import path
-from contextlib import contextmanager
-from functools import partial
 import pickle
 import logging
 from collections import defaultdict
@@ -45,6 +40,7 @@ class Store(object):
                 logging.debug('loaded %s from %s', name, thing_loc)
 
     def save(self):
+        '''save to disk, creates directory if necessary'''
         dir = self.dir
         if not dir:
             return
