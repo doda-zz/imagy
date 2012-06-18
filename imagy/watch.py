@@ -1,7 +1,7 @@
+from .config import *
+from . import core
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
-from config import *
-import core
 import time
 import logging
 from path import path
@@ -36,11 +36,11 @@ def start(dirs):
     event_handler, observer = CompressionHandler(), Observer()
     scheduled = False
     for dir in dirs:
-        if not path(dir).isdir():
-            logging.warning('%s is not a directory', dir)
-        else:
+        if path(dir).isdir():
             observer.schedule(event_handler, path=dir, recursive=True)
             scheduled = True
+        else:
+            logging.warning('%s is not a directory', dir)
     if not scheduled:
         logging.error('No valid directories specified. Exiting')
         exit()
