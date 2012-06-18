@@ -2,20 +2,16 @@
 # -*- coding: utf-8 -*-
 
 # all uppercase
-from .config import *
+from config import *
 
-from .utils import make_path, same_file, MARK, noop, dump
-from .store import store
-from .smushing import compress_image
-from . import watch
+from utils import make_path, same_file, MARK, noop, dump
+from store import store
+from smushing import compress_image
+import watch
 
 from path import path
-import sys
-import optparse
 
 import logging
-FORMAT = '%(asctime)-15s %(levelname)-12s %(message)s'
-logging.basicConfig(format=FORMAT, level=logging.DEBUG)
 
 def revert():
     '''Move stored originals back to their initial location'''
@@ -38,9 +34,6 @@ def revert():
         del store.originals[pth]
         del store.storedat[storedat]
 
-def corrext_ext(pth):
-    return pth.splitext()[1] in IMAGE_EXTENSIONS
-
 def clear():
     '''Clear out internal records - this makes --revert unreliable'''
     cleared = len(store.originals)
@@ -54,7 +47,7 @@ def handle_evented_file(pth):
         return
     if pth in store.storedat:
         if not store.storedat[pth]:
-            logging.warning('%s , a stored original has been modified - will ask what to do at --revert', pth)
+            logging.warning('%s, a stored original has been modified - will ask what to do at --revert', pth)
             store.storedat[pth] = MARK
     else:
         return handle_file(pth)
@@ -118,39 +111,3 @@ def ignore_file(pth, store=store):
     n = 1 if pth.exists() else 2
     store.ignore(pth, n)
 
-def main(opts, args):
-    logging.info('Imagy started')
-    logging.info('Ctrl-C to quit')
-    store.load(opts.store_loc)
-    dirs = map(path, args or FILE_PATTERNS)
-    nothing_has_run = None    # False is technincally false here~
-
-    if opts.clear: clear()
-    elif opts.u: dump()
-    elif opts.revert: revert()
-    elif opts.init: initialize(*dirs)
-    elif opts.list: list_files()
-    else: nothing_has_run = True
-
-    if opts.run or nothing_has_run:
-        watch.start(dirs)
-    
-if __name__ == "__main__":
-    parser = optparse.OptionParser('Optimize images')
-    parser.add_option('-i', '--init', action="store_true", default=False, help=initialize.__doc__)
-    parser.add_option('-c', '--clear', action="store_true", default=False, help=clear.__doc__)
-    parser.add_option('-l', '--list', action="store_true", default=False, help=list_files.__doc__)
-    parser.add_option('-r', '--revert', action="store_true", default=False, help=revert.__doc__)
-    parser.add_option('-n', '--run', action="store_true", default=False, help='Run the daemon'
-                      'even though another option has been specified')
-    parser.add_option('-u', action="store_true", default=False, help=dump.__doc__)
-    parser.add_option('-d', action="store", default=STORE_LOC, dest="store_loc", help='the folder'
-                      'within which internal storage resides')
-    opts, args = parser.parse_args(sys.argv[1:])
-    try:
-        main(opts, args)
-    finally:
-        try:
-            store.save()
-        except Exception,e:
-            logging.error('unable to save %s', str(e))

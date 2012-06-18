@@ -1,5 +1,6 @@
-from .config import STRIP_JPG_META
-from .utils import filesig
+from config import STRIP_JPG_META
+from utils import filesig
+
 from smush import Smush
 from path import path
 
