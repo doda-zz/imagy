@@ -1,4 +1,3 @@
-#! /usr/bin/python
 # -*- coding: utf-8 -*-
 
 # all uppercase
@@ -8,9 +7,7 @@ from utils import make_path, same_file, MARK, noop, dump
 from store import store
 from smushing import compress_image
 import watch
-
 from path import path
-
 import logging
 
 def revert():
