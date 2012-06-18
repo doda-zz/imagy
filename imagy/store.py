@@ -1,5 +1,6 @@
-from .utils import mktemp
+from utils import mktemp
 from config import STORE_LOC
+
 from path import path
 from contextlib import contextmanager
 from functools import partial
