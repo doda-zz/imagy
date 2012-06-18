@@ -17,6 +17,9 @@ setup(
     author_email='dominik@silberrock.com',
     url='https://github.com/doda/imagy',
     license=license,
-    packages=find_packages(exclude=('docs'))
+    packages=find_packages(exclude=('docs')),
+    entry_points={
+        "console_scripts": ['imagy=imagy.cl:main']
+        },
 )
 

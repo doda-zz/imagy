@@ -25,9 +25,6 @@ def mktemp():
     loc.remove()
     return loc
 
-def noop(*args, **kwargs):
-    '''does nothing'''
-
 def filesig(pth):
     '''
     a signature of the file, if this remains the same we can be pretty sure that the file hasn't been changed

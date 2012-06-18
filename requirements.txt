@@ -1,4 +1,2 @@
-nose
-sphinx
-smush
+path.py
 
