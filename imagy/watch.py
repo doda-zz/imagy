@@ -1,31 +1,38 @@
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from config import *
-from core import is_saught_after, handle_file
+import core
 import time
 import logging
 from path import path
 
+running = False
 
 class CompressionHandler(FileSystemEventHandler):
     def handle_event(self, event):
-        handle_file(path(event.src_path))
+        pth = path(event.src_path)
+        if not pth.isdir() and core.corrext_ext(pth):
+            core.handle_evented_file(pth)
     
     def on_created(self, event):
         if not OPTIMIZE_ON_CREATE:
             return
         super(CompressionHandler, self).on_created(event)
         time.sleep(SECONDS_AFTER_CREATE)
+        print 'cre', event.src_path
         self.handle_event(event)
         
     def on_modified(self, event):
-        if 1 or not OPTIMIZE_ON_CHANGE:
+        if not OPTIMIZE_ON_CHANGE:
             return
         super(CompressionHandler, self).on_modified(event)
         time.sleep(SECONDS_AFTER_CHANGE)
+        print 'mod', event.src_path
         self.handle_event(event)
 
 def start(dirs):
+    global running
+    running = True
     event_handler, observer = CompressionHandler(), Observer()
     scheduled = False
     for dir in dirs:

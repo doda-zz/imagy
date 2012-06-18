@@ -4,8 +4,6 @@ import unittest
 from imagy.config import *
 from imagy.core import *
 from imagy.persistence import load as load_pers, processed
-print 'test', processed
-from tempfile import mktemp
 from path import path
 from tempfile import mktemp
 from subprocess import Popen as p, call as c
