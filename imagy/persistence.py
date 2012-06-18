@@ -24,9 +24,6 @@ class Store(object):
         self.d.sync()
         return cleared
 
-    def originals(self):
-        return ((k,v) for k,v in self.iteritems() if v != '!')
-
     def __iter__(self):
         return iter(self.d)
 
@@ -41,4 +38,33 @@ class Store(object):
 
 # provide a persistent dict in a /tmp location by default
 # load allows to specify one in a less ephemeral location
-store = Store()
+touched = pickle.load(mkstemp())
+originals = pickle.load(mkstemp())
+
+def load(dir):
+    global touched, originals
+    touched = pickle.load(dir.joinpath('touched.p'))
+    originals = pickle.load(dir.joinpath('originals.p'))
+    
+def clear(dir):
+    pass
+
+class Store(object):
+    def __init__(self, loc):
+        self.load(loc)
+        
+    def load(self, loc):
+        if loc is None:
+            self.originals_loc = mktemp()
+            self.touched_loc = mktemp()
+        self.touched_loc = dir.joinpath('touched.p')
+        self.originals_loc = dir.joinpath('originals.p')
+        self.touched = pickle.load(self.touched_loc)
+        self.originals = pickle.load(self.originals_loc)
+
+    def clear(self):
+        self.touched = set()
+        self.originals = {}
+        pickle.dump(self.
+        
+    

@@ -1,8 +1,3 @@
-from path import path
-ROOT = path(__file__).parent
-
-# ------------
-
 OPTIMIZE_ON_CREATE = True
 OPTIMIZE_ON_CHANGE = True
 
@@ -30,6 +25,13 @@ IMAGE_EXTENSIONS = (
     'gif',
     )
    
-STORE_LOC = ROOT.joinpath('store.shelf')
-
 STRIP_JPG_META = True
+
+
+# ------------
+
+from path import path
+ROOT = path(__file__).parent
+STORE_LOC = ROOT.joinpath('picklejar')
+IMAGE_EXTENSIONS = ['.'+ext for ext in IMAGE_EXTENSIONS]
+
