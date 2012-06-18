@@ -5,7 +5,7 @@ from path import path
 
 smusher = Smush(strip_jpg_meta=STRIP_JPG_META, exclude=['.bzr', '.git', '.hg', '.svn'], list_only=False, quiet=True, identify_mime=True)
 
-def smush(pth, smusher=smusher):
+def compress_image(pth, smusher=smusher):
     '''
     i feel dirty, but we need to guarantee that watchdog fires an event when the file gets optimized
     '''

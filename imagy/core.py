@@ -1,16 +1,17 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 
+# all uppercase
+from .config import *
+
+from .utils import make_path, same_file, MARK, noop, dump
+from .store import store
+from .smushing import compress_image
+from . import watch
+
 from path import path
 import sys
 import optparse
-from utils import make_path, same_file, MARK, noop
-from store import store
-from smushing import smush as compress_image
-import watch
-
-# all uppercase
-from config import *
 
 import logging
 FORMAT = '%(asctime)-15s %(levelname)-12s %(message)s'
@@ -108,11 +109,6 @@ def find_storage_space(pth, identifier=ORIGINAL_IDENTIFIER):
     name, ext = pth.splitext()
     return make_path(name + identifier + ext, sep='')
 
-def dumm():
-    from pprint import pprint
-    for p in (store.originals, store.storedat, store.ignored):
-        pprint(p)
-
 def ignore_file(pth, store=store):
     if not watch.running:
         return
@@ -131,7 +127,7 @@ def main(opts, args):
     nothing_has_run = None
 
     if opts.clear: clear()
-    elif opts.u: dumm()
+    elif opts.u: dump()
     elif opts.revert: revert()
     elif opts.init: initialize(*dirs)
     elif opts.list: list_files()

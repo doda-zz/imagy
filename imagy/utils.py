@@ -34,8 +34,9 @@ def filesig(pth):
     '''
     return filecmp._sig(os.stat(pth))
 
-def run_then_exit(fun, exit_after=True, *args, **kwargs):
-    fun(*args, **kwargs)
-    if exit_after:
-        exit()
+def dump():
+    '''for debugging purposes'''
+    from pprint import pprint
+    for p in (store.originals, store.storedat, store.ignored):
+        pprint(p)
 

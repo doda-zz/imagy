@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import unittest
+from .context import 
 from imagy.config import *
 from imagy.core import *
 from imagy.utils import mktemp
