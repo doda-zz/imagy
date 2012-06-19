@@ -42,6 +42,8 @@ def handle_evented_file(pth):
     '''handles a file after an event has been received for it'''
     if not store.wants(pth):
         return
+    print pth ,store.storedat
+    print pth in store.storedat
     if pth in store.storedat:
         if not store.storedat[pth]:
             logging.warning('%s, a stored original has been modified - will ask what to do at --revert', pth)
@@ -50,7 +52,7 @@ def handle_evented_file(pth):
         return handle_file(pth)
 
 def handle_file(pth):
-    '''optimizes an image and stores an original if KEEP_ORIGINALS is set'''
+    '''Optimizes an image and stores an original if KEEP_ORIGINALS is set'''
     logging.info('Compressing file %s', pth)
     if KEEP_ORIGINALS:
         if pth in store.originals:
@@ -61,14 +63,20 @@ def handle_file(pth):
     # the original gets briefly added to ignore so watchdog doesnt pick it up
     ignore_file(pth)
     compress_image(pth)
+    if KEEP_ORIGINALS and same_file(storedat, pth):
+        storedat.remove()
             
 def initialize(*dirs):
     '''Run through the specified directories, optimizing all images'''
     logging.info('looking for not yet optimized files')
-    # quickly check if the file is an optimized file or stored original
+    dofiles(p for dir in dirs for p in dir.walkfiles())
+
+def do_files(*pths):
+    '''Optimize all given files'''
     touched_files = set(pth for kv in store.originals.items() for pth in kv)
-    for pth in (p for dir in dirs for p in dir.walkfiles() if p not in touched_files):
-        handle_file(pth)
+    for pth in [path(p).abspath() for p in files]:
+        if not pth in touched_files:
+            handle_file(pth)
 
 def list_files():
     '''list all files in internal store'''
@@ -98,14 +106,13 @@ def store_original(pth, storedat=None):
 def find_storage_space(pth, identifier=ORIGINAL_IDENTIFIER):
     '''Find a new path with the identifier'''
     name, ext = pth.splitext()
-    return make_path(name + identifier + ext, sep='')
+    return make_path(name + identifier + ext, sep='').abspath()
 
 def ignore_file(pth, store=store):
     '''before touching a file we tell store how many events it should ignore for it'''
     if not watch.running:
         return
     print 'ignoring', pth
-    pth = path(pth)
     # if the file doesnt exist watchdog sends create and modify else just modify
     n = 1 if pth.exists() else 2
     store.ignore(pth, n)

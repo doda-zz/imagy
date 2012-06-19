@@ -21,7 +21,7 @@ def same_file(p, pp):
 def mktemp():
     f = NamedTemporaryFile(delete=False)
     f.close()
-    loc = path(f.name)
+    loc = path(f.name).abspath()
     loc.remove()
     return loc
 
