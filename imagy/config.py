@@ -1,3 +1,5 @@
+from path import path
+
 OPTIMIZE_ON_CREATE = True
 OPTIMIZE_ON_CHANGE = True
 
@@ -27,11 +29,8 @@ IMAGE_EXTENSIONS = (
    
 STRIP_JPG_META = True
 
-
-# ------------
-
-from path import path
-ROOT = path(__file__).parent
+ROOT = path(__file__).parent.abspath()
 STORE_LOC = ROOT.joinpath('picklejar')
+
 IMAGE_EXTENSIONS = ['.'+ext for ext in IMAGE_EXTENSIONS]
 

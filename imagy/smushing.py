@@ -10,9 +10,9 @@ def compress_image(pth, smusher=smusher):
     '''
     i feel dirty, but we need to guarantee that watchdog fires an event when the file gets optimized
     '''
-    pth = path(pth)
+    pth = path(pth).abspath()
     sig = filesig(pth)
     smusher.smush(pth)
     if filesig(pth) == sig:
-        # probably no event fired, force it ourselves
+        # no event fired, force it ourselves
         pth.touch()

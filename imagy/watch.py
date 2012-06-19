@@ -10,7 +10,7 @@ running = False
 
 class CompressionHandler(FileSystemEventHandler):
     def handle_event(self, event):
-        pth = path(event.src_path)
+        pth = path(event.src_path).abspath()
         if not pth.isdir() and core.correct_ext(pth):
             core.handle_evented_file(pth)
     
@@ -36,7 +36,8 @@ def start(dirs):
     event_handler, observer = CompressionHandler(), Observer()
     scheduled = False
     for dir in dirs:
-        if path(dir).isdir():
+        dir = path(dir).abspath()
+        if dir.isdir():
             observer.schedule(event_handler, path=dir, recursive=True)
             scheduled = True
         else:
@@ -49,7 +50,7 @@ def start(dirs):
     logging.info('waiting for files')
     try:
         while True:
-            time.sleep(0.5)
+            time.sleep(1)
     except KeyboardInterrupt:
         observer.stop()
     observer.join()
