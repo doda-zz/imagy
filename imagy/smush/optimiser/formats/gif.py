@@ -1,6 +1,6 @@
 import os.path
 import shutil
-from smush.optimiser.optimiser import Optimiser
+from ..optimiser import Optimiser
 from animated_gif import OptimiseAnimatedGIF
 import logging
 

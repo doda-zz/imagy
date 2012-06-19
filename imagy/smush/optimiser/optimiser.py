@@ -5,7 +5,7 @@ import sys
 import shutil
 import logging
 import tempfile
-from smush.scratch import Scratch
+from ..scratch import Scratch
 
 class Optimiser(object):
     """

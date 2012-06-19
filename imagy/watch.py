@@ -1,5 +1,4 @@
 from config import *
-from utils import correct_ext
 import core
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
@@ -12,7 +11,7 @@ running = False
 class CompressionHandler(FileSystemEventHandler):
     def handle_event(self, event):
         pth = path(event.src_path)
-        if not pth.isdir() and correct_ext(pth):
+        if not pth.isdir() and core.correct_ext(pth):
             core.handle_evented_file(pth)
     
     def on_created(self, event):
