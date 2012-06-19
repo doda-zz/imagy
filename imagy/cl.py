@@ -16,12 +16,13 @@ parser.add_option('-i', '--init', action="store_true", default=False, help=initi
 parser.add_option('-c', '--clear', action="store_true", default=False, help=clear.__doc__)
 parser.add_option('-l', '--list', action="store_true", default=False, help=list_files.__doc__)
 parser.add_option('-r', '--revert', action="store_true", default=False, help=revert.__doc__)
-parser.add_option('-d', '--dir', action="store", default=STORE_LOC, dest="store_loc", help='the folder')
 parser.add_option('-f', '--files', action="store_true", default=False, help=do_files.__doc__)
 parser.add_option('-n', '--run', action="store_true", default=False, help='Run the daemon'
                   'even though another option has been specified')
-parser.add_option('-u', action="store_true", default=False, help=dump.__doc__)
+parser.add_option('-d', '--dir', action="store", default=STORE_LOC, dest="store_loc", help='the folder'
                   'within which internal storage resides')
+#debug
+parser.add_option('-u', action="store_true", default=False, help=dump.__doc__
 opts, args = parser.parse_args(sys.argv[1:])
 
 def _main(opts, args):
