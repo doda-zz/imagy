@@ -1,4 +1,4 @@
-from smush.optimiser.optimiser import Optimiser
+from ..optimiser import Optimiser
 
 class OptimiseAnimatedGIF(Optimiser):
     """

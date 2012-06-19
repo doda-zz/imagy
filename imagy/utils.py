@@ -37,6 +37,3 @@ def dump(store):
     for p in (store.originals, store.storedat, store.ignored):
         pprint(p)
 
-def correct_ext(pth):
-    return pth.splitext()[1] in IMAGE_EXTENSIONS
-

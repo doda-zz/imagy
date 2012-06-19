@@ -75,7 +75,7 @@ def list_files():
     logging.info('optimized files:')
     i = 0
     for i, (pth, storedat) in enumerate(store.originals.iteritems()):
-        print pth, 'stored at', storedat
+        print pth, '->', storedat
         i += 1
     logging.info('%s files', i)
         
@@ -110,3 +110,5 @@ def ignore_file(pth, store=store):
     n = 1 if pth.exists() else 2
     store.ignore(pth, n)
 
+def correct_ext(pth, exts=IMAGE_EXTENSIONS):
+    return pth.splitext()[1] in exts

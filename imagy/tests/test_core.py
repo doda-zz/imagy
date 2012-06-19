@@ -4,7 +4,6 @@ import unittest
 from context import imagy
 from imagy.config import *
 from imagy.core import *
-from imagy.utils import mktemp
 from imagy.store import Store
 from path import path
 import imgtest
@@ -50,7 +49,7 @@ class ImagyTestSuite(unittest.TestCase):
         self.assertFalse(thing in self.s.originals)
 
 def main():
-    # dynamically tests for various file formats, SO FN DRY
+    # dynamically add tests for various file formats, SO FN DRY
     for typ, pth in imgtest.images.items():
         fn = lambda self:self.check_image(pth)
         setattr(ImagyTestSuite, 'test_%s' % typ, fn)

@@ -1,5 +1,5 @@
 import os.path
-from smush.optimiser.optimiser import Optimiser
+from ..optimiser import Optimiser
 import logging
 
 class OptimiseJPG(Optimiser):
