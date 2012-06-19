@@ -5,8 +5,7 @@ from setuptools import setup, find_packages
 setup(
     name='imagy',
     version='0.0.1',
-    description='automatically optimize images',
-    long_description=readme,
+    description='A command line tool to automatically handle image optimization',
     author='Dominik Dabrowski',
     author_email='dominik@silberrock.com',
     url='https://github.com/doda/imagy',
