@@ -13,7 +13,7 @@ setup(
     license=open('LICENSE').read(),
     long_description=open('README').read(),
     packages=find_packages(),
-    package_data={'': ['LICENSE']},
+    package_data={'': ['README.rst','LICENSE']},
     install_requires=['watchdog','path.py'],
     entry_points={
         "console_scripts": ['imagy=imagy.cl:main']
