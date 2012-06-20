@@ -8,6 +8,8 @@ import sys
 import optparse
 
 import logging
+# we're running as a command line script, re-enable logging
+logging.disable(logging.NOTSET)
 FORMAT = '%(asctime)-15s %(levelname)-12s %(message)s'
 logging.basicConfig(format=FORMAT, level=logging.DEBUG)
 
