@@ -25,6 +25,7 @@ parser.add_option('-n', '--run', action="store_true", default=False, help='Run t
 parser.add_option('-d', '--dir', action="store", default=STORE_LOC, dest="store_loc", help='the folder'
                   'within which internal storage resides')
 #debug
+parser.add_option('-u', action="store_true", default=False, help=dump.__doc__)
 parser.add_option('-u', action="store_true", default=False, help=dump.__doc__
 opts, args = parser.parse_args(sys.argv[1:])
 
