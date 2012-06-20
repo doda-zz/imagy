@@ -9,6 +9,7 @@ from smushing import compress_image
 import watch
 from path import path
 import logging
+logging.disable(logging.CRITICAL)
 
 def revert():
     '''Move stored originals back to their initial location'''
