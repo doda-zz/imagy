@@ -44,6 +44,7 @@ def _main(opts, args):
     elif opts.revert: revert()
     elif opts.init: initialize(*dirs)
     elif opts.list: list_files()
+    elif opts.files: do_files(*args)
     elif opts.: list_files()
     else: nothing_has_run = True
 
