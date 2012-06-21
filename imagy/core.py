@@ -70,9 +70,10 @@ def handle_file(pth):
 def initialize(*dirs):
     '''Run through the specified directories, optimizing all images'''
     logging.info('looking for not yet optimized files')
-    dofiles(p for dir in dirs for p in dir.walkfiles())
+    files = (p for dir in dirs for p in dir.walkfiles())
+    do_files(*files)
 
-def do_files(*pths):
+def do_files(*files):
     '''Optimize all given files'''
     touched_files = set(pth for kv in store.originals.items() for pth in kv)
     for pth in [path(p).abspath() for p in files]:
