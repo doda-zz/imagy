@@ -28,9 +28,7 @@ class ImagyTestCase(unittest.TestCase):
         '''
         classfun = getattr(self, classfun)
         for _ in range(int(sleep/res)):
-            vals = valfun()
-            print vals
-            if genfun(*vals):
+            if genfun(*valfun()):
                 break
             time.sleep(res)
         classfun(*valfun())
