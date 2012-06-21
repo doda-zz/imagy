@@ -1,22 +1,20 @@
 # -*- coding: utf-8 -*-
 
 import unittest
-from context import imagy
+from imgtest import *
 from imagy.config import *
 from imagy.core import *
 from imagy.store import Store
 from path import path
-import imgtest
 
 import logging
 logging.disable(logging.CRITICAL)
 
 class ImagyTestSuite(unittest.TestCase):
     def setUp(self):
-        self.images = imgtest.images
-        self.loc = imgtest.image_loc
-        self.tmp = self.loc.parent.joinpath('imagesTEMP')
-        self.loc.copytree(self.tmp)
+        self.images = images
+        self.loc = image_loc
+        self.tmp = create_img_dir()
         self.s = Store()
         self.img_locs = dict((k, self.get_imgp(v)) for k, v in self.images.items())
 
@@ -50,7 +48,7 @@ class ImagyTestSuite(unittest.TestCase):
 
 def main():
     # dynamically add tests for various file formats, SO FN DRY
-    for typ, pth in imgtest.images.items():
+    for typ, pth in images.items():
         fn = lambda self:self.check_image(pth)
         setattr(ImagyTestSuite, 'test_%s' % typ, fn)
     unittest.main()

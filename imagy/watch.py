@@ -39,6 +39,7 @@ def start(dirs):
         dir = path(dir).abspath()
         if dir.isdir():
             observer.schedule(event_handler, path=dir, recursive=True)
+            logging.warning('watching %s', dir)
             scheduled = True
         else:
             logging.warning('%s is not a directory', dir)

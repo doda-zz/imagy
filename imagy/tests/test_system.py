@@ -1,41 +1,53 @@
 # -*- coding: utf-8 -*-
 
 import unittest
+import time
+from imgtest import *
 from imagy.config import *
 from imagy.core import *
-from imagy.persistence import load as load_pers, processed
 from path import path
-from tempfile import mktemp
+from tempfile import mkdtemp
 from subprocess import Popen as p, call as c
-import test
 
 import logging
 logging.disable(logging.CRITICAL)
+
+ORIGINALS = '*%s*' % ORIGINAL_IDENTIFIER
 
 
 class TinyTestSuite(unittest.TestCase):
     """Basic test cases."""
 
     def setUp(self):
-        self.tmp = path(mktemp())
-        tmp.mkdir()
-        self.proc = p(['imagy', tmp])
+        self.tmp = ''
 
     def tearDown(self):
-        pass
+        if self.tmp:
+            self.tmp.rmtree()
 
-    def test_create(self):
-        img = images['jpg']
-        new = make_path(img)
-        img.copy(new)
-        # fail if no visible optimization has occured after 10 seconds
-        for _ in range(10):
-            if img.size > new.size:
+    def start(self):
+        if not self.tmp:
+            self.mktemp()
+        self.proc = p(['imagy', '-q', self.tmp])
+
+    def mktemp(self):
+        self.tmp = path(mkdtemp())
+
+    def test_watch(self):
+        self.mktemp()
+        self.start()
+        time.sleep(1)
+        c(['cp'] + images.values() + [self.tmp])
+        while 1:
+            time.sleep(0.1)
+            if 8 == len(self.tmp.files()):
                 break
-            time.sleep(1)
-        self.assertTrue(img.size > new.size)
+        time.sleep(10)
+        self.assertEqual(8, len(self.tmp.files()))
+        self.assertEqual(4, len(self.tmp.files(ORIGINALS)))
 
     def test_revert(self):
+        return
         ret = c(['imagy', '-r'])
         self.assertEqual(ret, 0)
         self.assertFalse(self.tmp.files('*%s*' % ORIGINAL_IDENTIFIER))
@@ -43,3 +55,15 @@ class TinyTestSuite(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+
+'''
+mkdir
+start
+move all files
+check if there are 4 files *ident*
+check if they are all smaller than their ident, ''
+check if all the originals are the same files
+
+'''
