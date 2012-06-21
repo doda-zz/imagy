@@ -43,8 +43,6 @@ def handle_evented_file(pth):
     '''handles a file after an event has been received for it'''
     if not store.wants(pth):
         return
-    print pth ,store.storedat
-    print pth in store.storedat
     if pth in store.storedat:
         if not store.storedat[pth]:
             logging.warning('%s, a stored original has been modified - will ask what to do at --revert', pth)
@@ -120,7 +118,6 @@ def ignore_file(pth, store=store):
     '''before touching a file we tell store how many events it should ignore for it'''
     if not watch.running:
         return
-    print 'ignoring', pth
     # if the file doesnt exist watchdog sends create and modify else just modify
     n = 1 if pth.exists() else 2
     store.ignore(pth, n)

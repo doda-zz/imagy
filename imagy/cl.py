@@ -36,7 +36,7 @@ def _main(opts, args):
     logging.info('Imagy started')
     logging.info('Ctrl-C to quit')
     store.load(opts.store_loc)
-    dirs = map(path, args or FILE_PATTERNS)
+    dirs = [path(arg) for arg in args or FILE_PATTERNS if arg]
     nothing_has_run = None    # False is technincally false here~
 
 

@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import unittest
-import time
+# todo: remove *s
 from imgtest import *
 from imagy.config import *
 from imagy.core import *
 from path import path
-from tempfile import mkdtemp
 from subprocess import Popen as p, call as c
 
 import logging
@@ -15,36 +14,25 @@ logging.disable(logging.CRITICAL)
 ORIGINALS = '*%s*' % ORIGINAL_IDENTIFIER
 
 
-class TinyTestSuite(unittest.TestCase):
-    """Basic test cases."""
+class SystemTestSuite(ImagyTestCase):
+    """Test system's behavior from afar"""
 
     def setUp(self):
         self.tmp = ''
 
     def tearDown(self):
-        if self.tmp:
+        if 0 and self.tmp:
             self.tmp.rmtree()
 
-    def start(self):
-        if not self.tmp:
-            self.mktemp()
-        self.proc = p(['imagy', '-q', self.tmp])
-
-    def mktemp(self):
-        self.tmp = path(mkdtemp())
-
     def test_watch(self):
-        self.mktemp()
+        self.create_img_dir()
         self.start()
-        time.sleep(1)
-        c(['cp'] + images.values() + [self.tmp])
-        while 1:
-            time.sleep(0.1)
-            if 8 == len(self.tmp.files()):
-                break
-        time.sleep(10)
-        self.assertEqual(8, len(self.tmp.files()))
-        self.assertEqual(4, len(self.tmp.files(ORIGINALS)))
+        # give time for imagy to start
+        time.sleep(2)
+        self.copy_images_over()
+        
+        valfun = lambda:(8, len(self.tmp.files()))
+        self.wait_until_passes(valfun, sleep=20)
 
     def test_revert(self):
         return
