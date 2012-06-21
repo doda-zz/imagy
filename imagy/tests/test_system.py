@@ -21,7 +21,7 @@ class SystemTestSuite(ImagyTestCase):
         self.tmp = ''
 
     def tearDown(self):
-        if 0 and self.tmp:
+        if self.tmp:
             self.tmp.rmtree()
 
     def test_watch(self):
