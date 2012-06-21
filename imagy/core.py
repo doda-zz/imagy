@@ -58,14 +58,18 @@ def handle_file(pth):
     if KEEP_ORIGINALS:
         if pth in store.originals:
             # we have previously optimized this file and know where to store it
-            store_original(pth, store.originals[pth])
+            storedat = store_original(pth, store.originals[pth])
         else:
-            store_original(pth)
+            storedat = store_original(pth)
     # the original gets briefly added to ignore so watchdog doesnt pick it up
     ignore_file(pth)
     compress_image(pth)
-    if KEEP_ORIGINALS and same_file(storedat, pth):
-        storedat.remove()
+    if KEEP_ORIGINALS:
+        # only keep the file if we actually optimized it
+        if same_file(storedat, pth):
+            storedat.remove()
+        else:
+            store_original_location(pth, storedat)
             
 def initialize(*dirs):
     '''Run through the specified directories, optimizing all images'''
@@ -100,10 +104,12 @@ def store_original(pth, storedat=None):
     # check if the copy was successful
     if not same_file(pth, storedat):
         raise AttributeError('copy seems to differ from original')
-    # and store the original path so we can revert it later
+    return storedat
+
+def store_original_location(pth, storedat):
+    '''store the original path so we can revert it later'''
     store.originals[pth] = storedat
     store.storedat[storedat] = None
-    return storedat
 
 def find_storage_space(pth, identifier=ORIGINAL_IDENTIFIER):
     '''Find a new path with the identifier'''

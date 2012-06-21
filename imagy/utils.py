@@ -36,3 +36,4 @@ def dump(store):
     from pprint import pprint
     for p in (store.originals, store.storedat, store.ignored):
         pprint(p)
+
