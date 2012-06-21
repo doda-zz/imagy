@@ -19,7 +19,6 @@ class CompressionHandler(FileSystemEventHandler):
             return
         super(CompressionHandler, self).on_created(event)
         time.sleep(SECONDS_AFTER_CREATE)
-        print 'cre', event.src_path
         self.handle_event(event)
         
     def on_modified(self, event):
@@ -27,7 +26,6 @@ class CompressionHandler(FileSystemEventHandler):
             return
         super(CompressionHandler, self).on_modified(event)
         time.sleep(SECONDS_AFTER_CHANGE)
-        print 'mod', event.src_path
         self.handle_event(event)
 
 def start(dirs):

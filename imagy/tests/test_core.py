@@ -10,7 +10,7 @@ from path import path
 import logging
 logging.disable(logging.CRITICAL)
 
-class ImagyTestSuite(unittest.TestCase):
+class CoreTestSuite(ImagyTestCase):
     def setUp(self):
         self.images = images
         self.loc = image_loc
@@ -50,7 +50,7 @@ def main():
     # dynamically add tests for various file formats, SO FN DRY
     for typ, pth in images.items():
         fn = lambda self:self.check_image(pth)
-        setattr(ImagyTestSuite, 'test_%s' % typ, fn)
+        setattr(CoreTestSuite, 'test_%s' % typ, fn)
     unittest.main()
 
 if __name__ == '__main__':
