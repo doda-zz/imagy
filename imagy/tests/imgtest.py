@@ -72,8 +72,6 @@ class ImagyTestCase(unittest.TestCase):
         self.tmp = path(mkdtemp())
     
     def start(self):
-        if not self.tmp:
-            self.mktemp()
         self.proc = Popen(['imagy', '-q' if QUIET else '', self.tmp])
 
     def copy_images_over(self):
