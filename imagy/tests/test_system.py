@@ -13,7 +13,6 @@ logging.disable(logging.CRITICAL)
 
 ORIGINALS = '*%s*' % ORIGINAL_IDENTIFIER
 
-
 class SystemTestSuite(ImagyTestCase):
     """Test system's behavior from afar"""
 
@@ -36,15 +35,3 @@ class SystemTestSuite(ImagyTestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-
-
-'''
-mkdir
-start
-move all files
-check if there are 4 files *ident*
-check if they are all smaller than their ident, ''
-check if all the originals are the same files
-
-'''
