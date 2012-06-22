@@ -30,7 +30,7 @@ As soon as the file
 
     images/img.jpg
 
-gets created, Imagy optimizes while the original stays at
+gets created, Imagy optimizes it while keeping the original at 
 
 ::
 
@@ -41,7 +41,11 @@ The algorithms used are stable (don't further modify files after multiple invoca
 
 In the background Imagy uses the awesome library smush which exposes a general interface to handle the various file types.
 
-If you wish to stop using Imagy, run ``imagy -r`` which will copy all original images back to their initial location
 
+Further Usage
+-----------------
+
+
+If you wish to stop using Imagy, run ``imagy -r`` which will copy all original images back to their initial location
 
 If you have (rightfully) come to the conclusion that you don't really need to keep originals around, set ``KEEP_ORIGINALS`` in ``config.py`` to  ``False``. If you want to delete all already stored originals run ``imagy --deloriginals``.
