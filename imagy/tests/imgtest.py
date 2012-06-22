@@ -7,7 +7,6 @@ from operator import eq
 from tempfile import mkdtemp
 import time
 
-
 QUIET = 1
 
 class ImagyTestCase(unittest.TestCase):
@@ -17,6 +16,12 @@ class ImagyTestCase(unittest.TestCase):
         'gif':'gif.gif',
         'gifgif':'gifgif.gif'
         }
+    imagy = ['imagy']
+    imagy_mem = ['imagy', '-m']
+    if QUIET:
+        imagy += ['-q']
+        imagy_mem += ['-q']
+        
     def __init__(self, *args, **kwargs):
         super(ImagyTestCase, self).__init__(*args, **kwargs)
         self.root = path(__file__)
@@ -52,7 +57,7 @@ class ImagyTestCase(unittest.TestCase):
 #    def images(self):
 #        return dict((k, self.img_path(k)) for k,v in self.image_files.items())
 
-    def wait_until_passes(self, valfun, genfun=eq, classfun='assertEqual', sleep=10, res=0.5):
+    def wait_until_passes(self, valfun, genfun=eq, classfun='assertEqual', sleep=7, res=0.5):
         '''
         wait upto `sleep` seconds for the test to pass
         incredibly hackish and very probably not >the< way to do it, but alas..
@@ -66,8 +71,8 @@ class ImagyTestCase(unittest.TestCase):
 
     def start(self, *args, **kwargs):
         starter = kwargs.setdefault('starter', Popen)
-        args = list(args) + ['-q' if QUIET else '']
-        self.proc = starter(['imagy'] + args + [self.tmp])
+        args = self.imagy + list(args)
+        self.proc = starter(args + [self.tmp])
 
     def copy_images_over(self):
         call(['cp'] + self.images.values() + [self.tmp])

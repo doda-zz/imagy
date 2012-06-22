@@ -23,7 +23,7 @@ class SystemTestSuite(ImagyTestCase):
         self.copy_images_over()
         
         valfun = lambda:(8, len(self.tmp.files()))
-        self.wait_until_passes(valfun, sleep=20)
+        self.wait_until_passes(valfun)
 
     def init(self):
         # give time for imagy to start
@@ -45,6 +45,11 @@ class SystemTestSuite(ImagyTestCase):
         self.start('--deloriginals', starter=call)
         valfun = lambda:(4, len(self.tmp.files()))
         self.wait_until_passes(valfun)
+
+    def test_files_mode(self):
+        self.copy_images_over()
+        call(self.imagy_mem + ['-f'] + self.tmp.files())
+        self.assertEqual(8, len(self.tmp.files()))
 
 if __name__ == '__main__':
     unittest.main()
