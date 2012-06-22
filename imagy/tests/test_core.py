@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import unittest
-from imgtest import *
+from imgtest import ImagyTestCase
 from imagy.config import *
 from imagy.core import *
 from imagy.store import Store
@@ -11,19 +11,6 @@ import logging
 logging.disable(logging.CRITICAL)
 
 class CoreTestSuite(ImagyTestCase):
-    def setUp(self):
-        self.images = images
-        self.loc = image_loc
-        self.tmp = create_img_dir()
-        self.s = Store()
-        self.img_locs = dict((k, self.get_imgp(v)) for k, v in self.images.items())
-
-    def get_imgp(self, img):
-        return self.tmp.joinpath(img)
-
-    def tearDown(self):
-        self.tmp.rmtree()
-
     def check_image(self, img):
         img = self.get_imgp(img)
         sz = img.size

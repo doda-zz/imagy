@@ -17,13 +17,6 @@ ORIGINALS = '*%s*' % ORIGINAL_IDENTIFIER
 class SystemTestSuite(ImagyTestCase):
     """Test system's behavior from afar"""
 
-    def setUp(self):
-        self.tmp = ''
-
-    def tearDown(self):
-        if self.tmp:
-            self.tmp.rmtree()
-
     def test_watch(self):
         self.create_img_dir()
         self.start()
