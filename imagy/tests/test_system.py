@@ -6,7 +6,7 @@ from imgtest import *
 from imagy.config import *
 from imagy.core import *
 from path import path
-from subprocess import Popen as p, call as c
+from subprocess import Popen, call
 
 import logging
 logging.disable(logging.CRITICAL)
@@ -17,7 +17,6 @@ class SystemTestSuite(ImagyTestCase):
     """Test system's behavior from afar"""
 
     def test_watch(self):
-        self.create_img_dir()
         self.start()
         # give time for imagy to start
         time.sleep(2)
@@ -26,12 +25,26 @@ class SystemTestSuite(ImagyTestCase):
         valfun = lambda:(8, len(self.tmp.files()))
         self.wait_until_passes(valfun, sleep=20)
 
-    def test_revert(self):
-        return
-        ret = c(['imagy', '-r'])
-        self.assertEqual(ret, 0)
-        self.assertFalse(self.tmp.files('*%s*' % ORIGINAL_IDENTIFIER))
-        self.assertEqual(len(self.tmp.files()), len(test.images))
+    def init(self):
+        # give time for imagy to start
+        self.copy_images_over()
+        self.start('-i', starter=call)
+
+    def test_init_revert(self):
+        self.init()
+        valfun = lambda:(8, len(self.tmp.files()))
+        self.wait_until_passes(valfun)
+        self.start('-r', starter=call)
+        valfun = lambda:(4, len(self.tmp.files()))
+        self.wait_until_passes(valfun)
+
+    def test_del_originals(self):
+        self.init()
+        valfun = lambda:(8, len(self.tmp.files()))
+        self.wait_until_passes(valfun)
+        self.start('--deloriginals', starter=call)
+        valfun = lambda:(4, len(self.tmp.files()))
+        self.wait_until_passes(valfun)
 
 if __name__ == '__main__':
     unittest.main()

@@ -11,14 +11,18 @@ import logging
 logging.disable(logging.CRITICAL)
 
 class CoreTestSuite(ImagyTestCase):
+    def setup(self):
+        self.s = Store()
+        self.copy_images_over()
+    
     def check_image(self, img):
-        img = self.get_imgp(img)
+        img = self.img_path(img)
         sz = img.size
         compress_image(img)
         self.assertTrue(sz >= img.size)
 
     def test_store_original(self):
-        img = self.img_locs['jpg']
+        img = self.img_path('jpg')
         orig = store_original(img)
         self.assertTrue(same_file(img, orig))
         orig.remove()
@@ -35,8 +39,8 @@ class CoreTestSuite(ImagyTestCase):
 
 def main():
     # dynamically add tests for various file formats, SO FN DRY
-    for typ, pth in images.items():
-        fn = lambda self:self.check_image(pth)
+    for typ in ImagyTestCase.image_files:
+        fn = lambda self:self.check_image(typ)
         setattr(CoreTestSuite, 'test_%s' % typ, fn)
     unittest.main()
 

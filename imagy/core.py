@@ -29,8 +29,11 @@ def revert():
         if move:
             logging.info('moving %s back to %s', storedat, pth)
             path(storedat).move(pth)
-        del store.originals[pth]
-        del store.storedat[storedat]
+        clear_record(pth, storedat)
+
+def clear_record(pth, storedat):
+    del store.originals[pth]
+    del store.storedat[storedat]
 
 def clear():
     '''Clear out internal records - this makes --revert unreliable'''
@@ -124,3 +127,12 @@ def ignore_file(pth, store=store):
 
 def correct_ext(pth, exts=IMAGE_EXTENSIONS):
     return pth.splitext()[1] in exts
+
+def delete_originals():
+    '''Delete all originals, useful if you want to switch KEEP_ORIGINALS to False'''
+    for pth, storedat in store.originals.items():
+        logging.debug('removing %s', storedat)
+        # using remove_p as it doesnt raise an exc if the path doesnt exist
+        storedat.remove_p()
+        clear_record(pth, storedat)
+        

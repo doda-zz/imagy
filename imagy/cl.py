@@ -3,6 +3,7 @@
 
 from core import *
 from utils import dump
+from functools import partial
 
 import sys
 import optparse
@@ -13,20 +14,24 @@ logging.disable(logging.NOTSET)
 FORMAT = '%(asctime)-15s %(levelname)-12s %(message)s'
 logging.basicConfig(format=FORMAT, level=logging.DEBUG)
 
-parser = optparse.OptionParser('Optimize images')
-parser.add_option('-i', '--init', action="store_true", default=False, help=initialize.__doc__)
-parser.add_option('-c', '--clear', action="store_true", default=False, help=clear.__doc__)
-parser.add_option('-l', '--list', action="store_true", default=False, help=list_files.__doc__)
-parser.add_option('-r', '--revert', action="store_true", default=False, help=revert.__doc__)
-parser.add_option('-f', '--files', action="store_true", default=False, help=do_files.__doc__)
-parser.add_option('-q', '--quiet', action="store_true", default=False, help='no output')
 
-parser.add_option('-n', '--run', action="store_true", default=False, help='Run the daemon'
+parser = optparse.OptionParser('Optimize images')
+
+true_flag = partial(parser.add_option, action="store_true", default=False)
+true_flag('-i', '--init', help=initialize.__doc__)
+true_flag('-c', '--clear', help=clear.__doc__)
+true_flag('-l', '--list', help=list_files.__doc__)
+true_flag('-r', '--revert', help=revert.__doc__)
+true_flag('-f', '--files', help=do_files.__doc__)
+true_flag('-q', '--quiet', help='no output')
+true_flag('-e', '--deloriginals', help=delete_originals.__doc__)
+
+parser.add_option('-n', '--run', help='Run the daemon'
                   'even though another option has been specified')
 parser.add_option('-d', '--dir', action="store", default=STORE_LOC, dest="store_loc", help='the folder'
                   'within which internal storage resides')
 #debug
-parser.add_option('-u', action="store_true", default=False, help=dump.__doc__)
+true_flag('-u', help=dump.__doc__)
 opts, args = parser.parse_args(sys.argv[1:])
 
 def _main(opts, args):
@@ -37,8 +42,7 @@ def _main(opts, args):
     logging.info('Ctrl-C to quit')
     store.load(opts.store_loc)
     dirs = [path(arg) for arg in args or FILE_PATTERNS if arg]
-    nothing_has_run = None    # False is technincally false here~
-
+    run_daemon = opts.run
 
     if opts.clear: clear()
     elif opts.u: dump(store)
@@ -47,9 +51,10 @@ def _main(opts, args):
     elif opts.list: list_files()
     elif opts.files: do_files(*args)
     elif opts.list: list_files()
-    else: nothing_has_run = True
+    elif opts.deloriginals: delete_originals()
+    else: run_daemon = True
 
-    if opts.run or nothing_has_run:
+    if run_daemon:
         watch.start(dirs)
     
 def main():
