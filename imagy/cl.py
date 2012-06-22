@@ -25,6 +25,7 @@ true_flag('-r', '--revert', help=revert.__doc__)
 true_flag('-f', '--files', help=do_files.__doc__)
 true_flag('-q', '--quiet', help='no output')
 true_flag('-e', '--deloriginals', help=delete_originals.__doc__)
+true_flag('-m', '--memorystore', help='store internals in memory')
 
 parser.add_option('-n', '--run', help='Run the daemon'
                   'even though another option has been specified')
@@ -39,23 +40,24 @@ def _main(opts, args):
         logging.disable(logging.CRITICAL)
         
     logging.info('Imagy started')
-    logging.info('Ctrl-C to quit')
-    store.load(opts.store_loc)
-    dirs = [path(arg) for arg in args or FILE_PATTERNS if arg]
+    logging.debug(map(str, (args, opts)))
+    if not opts.memorystore:
+        store.load(opts.store_loc)
+    args = [path(arg) for arg in args or FILE_PATTERNS if arg]
     run_daemon = opts.run
 
     if opts.clear: clear()
     elif opts.u: dump(store)
     elif opts.revert: revert()
-    elif opts.init: initialize(*dirs)
+    elif opts.init: initialize(*args)
     elif opts.list: list_files()
     elif opts.files: do_files(*args)
-    elif opts.list: list_files()
     elif opts.deloriginals: delete_originals()
     else: run_daemon = True
 
     if run_daemon:
-        watch.start(dirs)
+        logging.info('Ctrl-C to quit')
+        watch.start(args)
     
 def main():
     try:
