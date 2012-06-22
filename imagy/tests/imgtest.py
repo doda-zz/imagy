@@ -33,14 +33,14 @@ class ImagyTestCase(unittest.TestCase):
         return self.tmp.joinpath(img)
 
     def setUp(self, *args, **kwargs):
+        self.__setup(*args, **kwargs)
         if not self.__setup is self.setup:
             self.setup(*args, **kwargs)
-        return self.__setup(*args, **kwargs)
     
     def tearDown(self, *args, **kwargs):
+        self.__teardown(*args, **kwargs)
         if not self.__teardown is self.teardown:
             self.teardown(*args, **kwargs)
-        return self.__teardown(*args, **kwargs)
     
     def setup(self):
         self.tmp = path(' ')
