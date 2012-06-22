@@ -61,7 +61,6 @@ class Store(object):
         a file ourselves)
         '''
         counter = self.ignored[pth]
-        print pth, counter
         if counter < 0:
             # ignore forever
             return False
