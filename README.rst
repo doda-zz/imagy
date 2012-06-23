@@ -19,7 +19,8 @@ If you have (rightfully) come to the conclusion that you don't really need to ke
 Getting Started 
 -----------------
 
-Tested on Ubuntu 11.10:
+
+Imagy depends on a bunch of binaries (listed at the bottom) On Ubuntu (tested on 11.10) you can get everything with:
 
 ::
 
