@@ -32,9 +32,7 @@ Imagy depends on a bunch of binaries (listed at the bottom) for image optimizati
 
 That's it. Try it by running ``imagy``.
 
-If you don't have pip installed, you can find more information
-
-.. _here: http://www.pip-installer.org/en/latest/installing.html#prerequisites
+If you don't have pip installed, you can find more information here: http://www.pip-installer.org/en/latest/installing.html#prerequisites
 
 
 Example Usage
