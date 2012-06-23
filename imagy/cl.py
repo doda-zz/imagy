@@ -12,8 +12,6 @@ import logging
 # we're running as a command line script, re-enable logging
 logging.disable(logging.NOTSET)
 FORMAT = '%(asctime)-15s %(levelname)-12s %(message)s'
-logging.basicConfig(format=FORMAT, level=logging.DEBUG)
-
 
 parser = optparse.OptionParser('Optimize images')
 
@@ -37,6 +35,9 @@ true_flag('--dump', help=dump.__doc__)
 opts, args = parser.parse_args(sys.argv[1:])
 
 def _main(opts, args):
+    level = logging.DEBUG if opts.debug else logging.INFO
+    logging.basicConfig(format=FORMAT, level=level)
+    
     if opts.quiet:
         logging.disable(logging.CRITICAL)
         
@@ -56,7 +57,7 @@ def _main(opts, args):
     run_daemon = opts.run
 
     if opts.clear: clear()
-    elif opts.u: dump(store)
+    elif opts.dump: dump(store)
     elif opts.revert: revert()
     elif opts.init: initialize(*args)
     elif opts.list: list_files()
