@@ -53,10 +53,6 @@ class ImagyTestCase(unittest.TestCase):
     def img_path(self, img):
         return self.tmp.joinpath(self.image_files[img])
 
-#    @property
-#    def images(self):
-#        return dict((k, self.img_path(k)) for k,v in self.image_files.items())
-
     def wait_until_passes(self, valfun, genfun=eq, classfun='assertEqual', sleep=7, res=0.5):
         '''
         wait upto `sleep` seconds for the test to pass
