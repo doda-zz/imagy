@@ -31,7 +31,7 @@ Tested on Ubuntu 10.04 & 11.10:
 That's it. You should now be able to run ``imagy``.
 
 
-.. _Information on how to install ``pip``: http://www.pip-installer.org/en/latest/installing.html#using-the-installer
+.. _Information on how to install ``pip``: http://www.pip-installer.org/en/latest/installing.html#prerequisites
 
 
 Example
