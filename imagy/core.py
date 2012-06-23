@@ -87,7 +87,6 @@ def do_files(*files):
         else:
             handle_file(pth)
             
-
 def list_files():
     '''list all files in internal store'''
     logging.info('optimized files:')
