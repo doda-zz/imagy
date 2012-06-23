@@ -47,6 +47,7 @@ def start(dirs):
     
     observer.start()
     logging.info('waiting for files')
+    logging.info('Ctrl-C to quit')
     try:
         while True:
             time.sleep(1)
