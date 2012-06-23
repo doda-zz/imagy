@@ -1,5 +1,7 @@
 from path import path
 
+IMAGY_HOME = '.imagy'
+
 OPTIMIZE_ON_CREATE = True
 OPTIMIZE_ON_CHANGE = True
 
@@ -10,9 +12,10 @@ FILE_PATTERNS = (
 #    '/home/me/awesome/',
     )
 
+#todo
 # By default wait upto a minute until all other processes have closed the file
-MAX_OPEN_FILEHANDLES = 0
-MAX_WAIT_OPEN_FILEHANDLES = 60
+#MAX_OPEN_FILEHANDLES = 0
+#MAX_WAIT_OPEN_FILEHANDLES = 60
 
 # If set to False, Imagy will delete originals after deletion
 KEEP_ORIGINALS = True
@@ -29,8 +32,8 @@ IMAGE_EXTENSIONS = (
    
 STRIP_JPG_META = True
 
-ROOT = path(__file__).parent.abspath()
-STORE_LOC = ROOT.joinpath('picklejar')
-
 IMAGE_EXTENSIONS = ['.'+ext for ext in IMAGE_EXTENSIONS]
 
+# the location where imagy stores its internals, if this is `None` at startup, imagy will ask where it should store
+
+STORE_PATH = None

@@ -4,6 +4,7 @@ import logging
 from collections import defaultdict
 
 class Store(object):
+    # dynamically created attributes, with their respective pickle paths
     STORES = (
         # used if we mess with a file and don't want watchdog to pick it up
         ('ignored', lambda:defaultdict(int), 'ignored.p'),
