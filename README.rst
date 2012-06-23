@@ -65,8 +65,6 @@ Afterwards you can let imagy start watching the directory (and all directories u
     2012-06-23 14:52:24,796 INFO         waiting for files
     2012-06-23 14:52:24,796 INFO         Ctrl-C to quit
 
-As soon as the file
-
 
 Homage
 -----------------
@@ -78,12 +76,8 @@ In the background Imagy uses the awesome library ``smush.py`` which exposes a ge
 Dependencies
 -----------------
 
-imagemagick
-
-gifsicle
-
-jpegtran (on ubuntu in libjpeg-progs)
-
-pngcrush
-
-pngnq 
+- imagemagick
+- gifsicle
+- jpegtran (on ubuntu in libjpeg-progs)
+- pngcrush
+- pngnq 
