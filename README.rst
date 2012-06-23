@@ -19,20 +19,19 @@ If you have (rightfully) come to the conclusion that you don't really need to ke
 Getting Started 
 -----------------
 
-On ubuntu:
+Tested on Ubuntu 10.04 & 11.10:
 
 ::
 
-    sudo apt-get install pngnq pngcrush imagemagick libjpeg-progs gifsicle
-
+    sudo apt-get install pngnq pngcrush imagemagick gifsicle libjpeg-progs
 
     pip install imagy
     
 
-That's it. Imagy's now running.
+That's it. You should now be able to run ``imagy``.
 
 
-You can instead also specifiy the image paths directly in ``config.py`` which already holds a couple of examples
+.. _Information on how to install ``pip``: http://www.pip-installer.org/en/latest/installing.html#using-the-installer
 
 
 Example
@@ -56,3 +55,13 @@ Homage
 
 In the background Imagy uses the awesome library smush which exposes a general interface to handle the various file types.
 
+
+
+Dependencies
+-----------------
+
+imagemagick
+gifsicle
+jpegtran (on ubuntu in libjpeg-progs)
+pngcrush
+pngnq 

@@ -17,13 +17,13 @@ class SystemTestSuite(ImagyTestCase):
     """Test system's behavior from afar"""
 
     def test_watch(self):
-        self.start()
+        self.start('-m')
         # give time for imagy to start
         time.sleep(2)
         self.copy_images_over()
-        
+
         valfun = lambda:(8, len(self.tmp.files()))
-        self.wait_until_passes(valfun)
+        self.wait_until_passes(valfun, sleep=20)
 
     def init(self):
         # give time for imagy to start
