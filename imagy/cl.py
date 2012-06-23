@@ -24,15 +24,16 @@ true_flag('-l', '--list', help=list_files.__doc__)
 true_flag('-r', '--revert', help=revert.__doc__)
 true_flag('-f', '--files', help=do_files.__doc__)
 true_flag('-q', '--quiet', help='no output')
-true_flag('-e', '--deloriginals', help=delete_originals.__doc__)
 true_flag('-m', '--memorystore', help='store internals in memory')
+true_flag('--deloriginals', help=delete_originals.__doc__)
+true_flag('--debug', help='set logging to DEBUG')
 
 parser.add_option('-n', '--run', help='Run the daemon'
                   'even though another option has been specified')
 parser.add_option('-d', '--dir', action="store", default=STORE_PATH, dest="store_path", help='the directory'
                   'within which internal storage resides')
 #debug
-true_flag('-u', help=dump.__doc__)
+true_flag('--dump', help=dump.__doc__)
 opts, args = parser.parse_args(sys.argv[1:])
 
 def _main(opts, args):
