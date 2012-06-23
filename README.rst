@@ -1,18 +1,31 @@
 Imagy - make your website's images load upto 50% faster
 ===============
 
-Imagy uses *lossless compression* on images, so your users never have to load unnecessary bytes. The algorithms used are lossless, so your images look the same, but load faster.
+Imagy is a file daemon, that watches your website's media root (where your images are stored) and automatically optimizes image files that are created or modified within it. Imagy uses *lossless compression*, so your users never have to load unnecessary bytes while the algorithms used are completely lossless. Your images look the same, but load faster.
 
-Instead of having to code up deamons, file watches and handle different file formats on your own, Imagy does all the work for you. Just point it at the folder(s) your images are stored in and it will automatically look for files that are created or changed and optimize them for size *without any visual impact*.
+A lot of work has gone into making it `set-and-forget`. Instead of having to code up deamons, file watches and handle different file formats on your own, Imagy does all the work for you. All you need to do is
+::
 
-Getting Started
+    imagy /awesome/images/
+    
+
+The algorithms used are stable (don't further modify files after multiple invocations), however to make trying it out as easy as possible Imagy, by default, keeps the original file around for later reversal. 
+
+If you wish to stop using Imagy, run ``imagy -r`` which will copy all original images back to their initial location
+
+If you have (rightfully) come to the conclusion that you don't really need to keep originals around, set ``KEEP_ORIGINALS`` in ``config.py`` to  ``False``. If you want to delete all already stored originals run ``imagy --deloriginals``.
+
+
+Getting Started 
 -----------------
+
+On ubuntu:
 
 ::
 
+    sudo apt-get install pngnq pngcrush
+
     pip install imagy
-    
-    imagy /awesome/images/in/here/
     
 
 That's it. Imagy's now running.
@@ -37,15 +50,8 @@ gets created, Imagy optimizes it while keeping the original at
     images/img-original.jpg
      
 
-The algorithms used are stable (don't further modify files after multiple invocations), however by default Imagy keeps the original file. If you would not like to keep original images around set KEEP_ORIGINALS to False. 
+Homage
+-----------------
 
 In the background Imagy uses the awesome library smush which exposes a general interface to handle the various file types.
 
-
-Further Usage
------------------
-
-
-If you wish to stop using Imagy, run ``imagy -r`` which will copy all original images back to their initial location
-
-If you have (rightfully) come to the conclusion that you don't really need to keep originals around, set ``KEEP_ORIGINALS`` in ``config.py`` to  ``False``. If you want to delete all already stored originals run ``imagy --deloriginals``.

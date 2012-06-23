@@ -29,7 +29,7 @@ true_flag('-m', '--memorystore', help='store internals in memory')
 
 parser.add_option('-n', '--run', help='Run the daemon'
                   'even though another option has been specified')
-parser.add_option('-d', '--dir', action="store", default=STORE_LOC, dest="store_loc", help='the folder'
+parser.add_option('-d', '--dir', action="store", default=STORE_PATH, dest="store_path", help='the directory'
                   'within which internal storage resides')
 #debug
 true_flag('-u', help=dump.__doc__)
@@ -41,8 +41,16 @@ def _main(opts, args):
         
     logging.info('Imagy started')
     logging.debug(map(str, (args, opts)))
+    
     if not opts.memorystore:
-        store.load(opts.store_loc)
+        store_path = opts.store_path
+        if store_path is None:
+            imagy_at_home = path('~/%s' % IMAGY_HOME).expanduser()
+            logging.info('Storing settings in %s, you can modify this path in config.py under STORE_PATH',
+                         imagy_at_home)
+            store_path = imagy_at_home
+        store.load(store_path)
+        
     args = [path(arg) for arg in args or FILE_PATTERNS if arg]
     run_daemon = opts.run
 
@@ -67,3 +75,8 @@ def main():
             store.save()
         except Exception, e:
             logging.error('unable to save %s', str(e))
+        else:
+            logging.debug('saved to %s', store.dir)
+            
+if __name__ == '__main__':
+    main()
