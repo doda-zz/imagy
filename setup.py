@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='imagy',
-    version='0.2.0',
+    version='0.2.1',
     description='A daemon to automatically handle image optimization',
     author='Dominik Dabrowski',
     author_email='dominik@silberrock.com',

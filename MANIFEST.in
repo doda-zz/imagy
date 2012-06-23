@@ -1,1 +1,1 @@
-include README.rst LICENSE imagy/tests/* imagy/images/*
+include README.rst LICENSE imagy/tests/* imagy/tests/images/*
