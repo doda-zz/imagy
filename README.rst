@@ -39,6 +39,7 @@ Example Usage
 When starting out you can tell Imagy to optimize (initialize) a directory of new images:
 
 ::
+
     $ ll img
     total 52K
     -rw-rw-r-- 1 ddd ddd 50K 2012-06-23 14:45 beach.jpg
@@ -52,7 +53,7 @@ When starting out you can tell Imagy to optimize (initialize) a directory of new
     -rw-rw-r-- 1 ddd ddd 25K 2012-06-23 14:48 beach.jpg
     -rw-rw-r-- 1 ddd ddd 50K 2012-06-23 14:48 beach-original.jpg
 
-Afterwards you can let imagy start watching the directory (and all directories underneath it)
+Afterwards you can let imagy start watching the directory (and all directories underneath it) by 
 
 ::
 
