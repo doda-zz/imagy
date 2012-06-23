@@ -66,7 +66,6 @@ def _main(opts, args):
     else: run_daemon = True
 
     if run_daemon:
-        logging.info('Ctrl-C to quit')
         watch.start(args)
     
 def main():
