@@ -33,21 +33,38 @@ That's it. Try it by running ``imagy``.
 .. _Information on how to install ``pip``: http://www.pip-installer.org/en/latest/installing.html#prerequisites
 
 
-Example
+Example Usage
 -----------------
+
+When starting out you can tell Imagy to optimize (initialize) a directory of new images:
+
+::
+    $ ll img
+    total 52K
+    -rw-rw-r-- 1 ddd ddd 50K 2012-06-23 14:45 beach.jpg
+    $ imagy --init img
+    2012-06-23 14:48:27,133 INFO         Imagy started
+    2012-06-23 14:48:27,133 INFO         Storing settings in /home/ddd/.imagy, you can modify this path in config.py under STORE_PATH
+    2012-06-23 14:48:27,134 INFO         looking for not yet optimized files
+    2012-06-23 14:48:27,134 INFO         Compressing file /home/ddd/img/beach.jpg
+    $ ll img
+    total 80K
+    -rw-rw-r-- 1 ddd ddd 25K 2012-06-23 14:48 beach.jpg
+    -rw-rw-r-- 1 ddd ddd 50K 2012-06-23 14:48 beach-original.jpg
+
+Afterwards you can let imagy start watching the directory (and all directories underneath it)
+
+::
+
+    $ imagy img
+    2012-06-23 14:52:24,794 INFO         Imagy started
+    2012-06-23 14:52:24,794 INFO         Storing settings in /home/ddd/.imagy, you can modify this path in config.py under STORE_PATH
+    2012-06-23 14:52:24,795 WARNING      watching /home/ddd/img
+    2012-06-23 14:52:24,796 INFO         waiting for files
+    2012-06-23 14:52:24,796 INFO         Ctrl-C to quit
 
 As soon as the file
 
-::
-
-    images/img.jpg
-
-gets created, Imagy optimizes it while keeping the original at 
-
-::
-
-    images/img-original.jpg
-     
 
 Homage
 -----------------
