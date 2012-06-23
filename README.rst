@@ -8,19 +8,20 @@ A lot of work has gone into making it `set-and-forget`. Instead of having to cod
 
     imagy /awesome/images/
     
+and Imagy will start watching the directory ``/awesome/images/`` and all its subdirectories for images that get created or modified.
 
-The algorithms used are stable (don't further modify files after multiple invocations), however to make trying it out as easy as possible Imagy, by default, keeps the original file around for later reversal. 
+The algorithms used are stable (don't further modify files after multiple invocations), however to make trying Imagy out as easy as possible, the default is to keep original files around for later reversal. 
 
-If you wish to stop using Imagy, run ``imagy -r`` which will copy all original images back to their initial location
+If you wish to stop using Imagy, run ``imagy --revert`` which will move all original images back to their initial location
 
-If you have (rightfully) come to the conclusion that you don't really need to keep originals around, set ``KEEP_ORIGINALS`` in ``config.py`` to  ``False``. If you want to delete all already stored originals run ``imagy --deloriginals``.
+If you have (rightfully) come to the conclusion that you don't really need to keep originals around, set ``KEEP_ORIGINALS`` in ``config.py`` to ``False``. If you want to delete all already stored originals run ``imagy --deloriginals``.
 
 
 Getting Started 
 -----------------
 
 
-Imagy depends on a bunch of binaries (listed at the bottom) On Ubuntu (tested on 11.10) you can get everything with:
+Imagy depends on a bunch of binaries (listed at the bottom) for image optimization. On Ubuntu (tested on 11.10) you can install everything with:
 
 ::
 
@@ -31,7 +32,9 @@ Imagy depends on a bunch of binaries (listed at the bottom) On Ubuntu (tested on
 
 That's it. Try it by running ``imagy``.
 
-.. _Information on how to install ``pip``: http://www.pip-installer.org/en/latest/installing.html#prerequisites
+If you don't have pip installed, you can find more information
+
+.. _here: http://www.pip-installer.org/en/latest/installing.html#prerequisites
 
 
 Example Usage
