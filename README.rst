@@ -69,7 +69,7 @@ Afterwards you can let imagy start watching the directory (and all directories u
     2012-06-23 14:52:24,796 INFO         Ctrl-C to quit
 
 
-Homage
+Credits
 -----------------
 
 In the background Imagy uses the awesome library ``smush.py`` which exposes a general interface to handle the various file types.
