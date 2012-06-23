@@ -43,7 +43,7 @@ def start(dirs):
             logging.warning('%s is not a directory', dir)
     if not scheduled:
         logging.error('No valid directories specified. Exiting')
-        exit()
+        return
     
     observer.start()
     logging.info('waiting for files')
