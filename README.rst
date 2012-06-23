@@ -54,7 +54,7 @@ When starting out you can tell Imagy to optimize (initialize) a directory of new
     -rw-rw-r-- 1 ddd ddd 25K 2012-06-23 14:48 beach.jpg
     -rw-rw-r-- 1 ddd ddd 50K 2012-06-23 14:48 beach-original.jpg
 
-Afterwards you can let imagy start watching the directory (and all directories underneath it) by 
+Afterwards you can let imagy start watching the directory (and all directories underneath it) by running
 
 ::
 
@@ -71,7 +71,7 @@ As soon as the file
 Homage
 -----------------
 
-In the background Imagy uses the awesome library smush which exposes a general interface to handle the various file types.
+In the background Imagy uses the awesome library ``smush.py`` which exposes a general interface to handle the various file types.
 
 
 
