@@ -1,5 +1,4 @@
 include README.rst LICENSE
-recursive-exclude imagy/tests *
 
 
 

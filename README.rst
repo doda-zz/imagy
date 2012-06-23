@@ -23,7 +23,8 @@ On ubuntu:
 
 ::
 
-    sudo apt-get install pngnq pngcrush
+    sudo apt-get install pngnq pngcrush imagemagick libjpeg-progs gifsicle
+
 
     pip install imagy
     
