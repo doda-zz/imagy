@@ -2,6 +2,8 @@
 
 from setuptools import setup, find_packages
 
+deps = ['watchdog','path.py']
+
 setup(
     name='imagy',
     version='0.2.7',
@@ -13,7 +15,7 @@ setup(
     long_description=open('README.rst').read(),
     packages=find_packages(),
     package_data={'': ['README.rst','LICENSE']},
-    install_requires=['watchdog','path.py'],
+    install_requires=deps,
     entry_points={
         "console_scripts": ['imagy=imagy.cl:main']
         },
