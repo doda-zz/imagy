@@ -6,7 +6,7 @@ deps = ['watchdog','path.py']
 
 setup(
     name='imagy',
-    version='0.2.7',
+    version='0.2.8',
     description='A daemon to automatically handle image optimization',
     author='Dominik Dabrowski',
     author_email='dominik@silberrock.com',
