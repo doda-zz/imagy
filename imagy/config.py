@@ -7,15 +7,11 @@ OPTIMIZE_ON_CHANGE = True
 
 SECONDS_AFTER_CREATE = 0
 SECONDS_AFTER_CHANGE = 0
+
 FILE_PATTERNS = (
 #    '/srv/images/*',
 #    '/home/me/awesome/',
     )
-
-#todo
-# By default wait upto a minute until all other processes have closed the file
-#MAX_OPEN_FILEHANDLES = 0
-#MAX_WAIT_OPEN_FILEHANDLES = 60
 
 # If set to False, Imagy will delete originals after deletion
 KEEP_ORIGINALS = True
