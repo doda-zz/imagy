@@ -39,7 +39,7 @@ class Store(object):
             return
         for name, typ, loc in self.STORES:
             thing_loc = dir.joinpath(loc)
-            self.locs[name] = thing_loc
+            self.locations[name] = thing_loc
             if thing_loc.exists():
                 setattr(self, name, pickle.load(open(thing_loc)))
                 logging.debug('loaded %s from %s', name, thing_loc)
@@ -52,7 +52,7 @@ class Store(object):
         if not dir.exists():
             dir.mkdir()
         for name, typ, loc in self.STORES:
-            pickle.dump(getattr(self, name), open(self.locs[name], 'w'))
+            pickle.dump(getattr(self, name), open(self.locations[name], 'w'))
 
     def ignore(self, item, n=1):
         '''increment the counter inside ignored, which causes events to that path to be ignored n times'''
