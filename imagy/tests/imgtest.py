@@ -55,6 +55,8 @@ class ImagyTestCase(unittest.TestCase):
 
     def wait_until_passes(self, valfun, genfun=eq, classfun='assertEqual', sleep=7, res=0.5):
         '''
+        doing system testing with unittest ... why not?!
+        
         wait upto `sleep` seconds for the test to pass
         incredibly hackish and very probably not >the< way to do it, but alas..
         '''

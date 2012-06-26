@@ -1,3 +1,8 @@
+'''
+A wrapper around the smush.py library
+
+the library itself has been modifed to make it work with the binaries included in most package managers (to custom patches + recompiling
+'''
 from config import STRIP_JPG_META
 from utils import filesig
 
@@ -8,11 +13,12 @@ smusher = Smush(strip_jpg_meta=STRIP_JPG_META, exclude=['.bzr', '.git', '.hg', '
 
 def compress_image(pth, smusher=smusher):
     '''
-    i feel dirty, but we need to guarantee that watchdog fires an event when the file gets optimized
+    dirty, but we need to guarantee that the file gets touched to make sure watchdog fires an event
+    when the file gets optimized
     '''
     pth = path(pth).abspath()
     sig = filesig(pth)
     smusher.smush(pth)
     if filesig(pth) == sig:
-        # no event fired, force it ourselves
+        # not modified, force it ourselves
         pth.touch()

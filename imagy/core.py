@@ -13,7 +13,7 @@ logging.disable(logging.CRITICAL)
 
 def revert():
     '''Move stored originals back to their initial location'''
-    # sort so we move as much as possible before asking what to do
+    # sort to get as many un-marked paths that require no user input, until prompting for further instruction
     logging.info('reverting %s files', len(store.originals))
     for pth, storedat in sorted(store.originals.items(), key=lambda (k, v):store.storedat[v]):
         move = True
@@ -24,7 +24,8 @@ def revert():
             if resp == 'a':
                 break
             if resp != 'y':
-                # we still want to go down and remove the file from store so we don't ask for it again
+                # we still want to go down and remove the file from store so we don't ask for it
+                # upon repeated invocation
                 move = False
         if move:
             logging.info('moving %s back to %s', storedat, pth)
@@ -32,11 +33,12 @@ def revert():
         clear_record(pth, storedat)
 
 def clear_record(pth, storedat):
+    '''remove the file from internal storage'''
     del store.originals[pth]
     del store.storedat[storedat]
 
 def clear():
-    '''Clear out internal records - this makes --revert unreliable'''
+    '''Clear out all internal records - this makes --revert unreliable'''
     cleared = len(store.originals)
     store.clear()
     store.save()
