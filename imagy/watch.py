@@ -9,7 +9,10 @@ from path import path
 running = False
 
 class CompressionHandler(FileSystemEventHandler):
+    '''Subclassing Watchdog to specify our own handling of files'''
     def handle_event(self, event):
+        # convert to an abspath as soon as possible, if relative paths enter the system
+        # things start to break
         pth = path(event.src_path).abspath()
         if not pth.isdir() and core.correct_ext(pth):
             core.handle_evented_file(pth)

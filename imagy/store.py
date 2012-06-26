@@ -4,14 +4,17 @@ import logging
 from collections import defaultdict
 
 class Store(object):
-    # dynamically created attributes, with their respective pickle paths
+    '''
+    Keeps track of originals and - optionally - persists them to disk
+    the actual dictionaries alongside their respective pickle paths get created dynamically with get/setattr
+    '''
     STORES = (
         # used if we mess with a file and don't want watchdog to pick it up
         ('ignored', lambda:defaultdict(int), 'ignored.p'),
         # used to restore original files in case of --revert
         ('originals', dict, 'originals.p'),
-        # these are the stored originals, if one of these get modified, 
-        # it gets marked so we can later ask what to do upon revert
+        # maintained to quickly check if a stored original has been modified
+        # if we mark it and ask what to do upon --revert
         ('storedat', dict, 'storedat.p'),
         )
               
@@ -25,6 +28,7 @@ class Store(object):
             self.load(dir)
 
     def clear(self):
+        '''initialize data stores to emptiness'''
         for name, typ, loc in self.STORES:
             setattr(self, name, typ())
             
@@ -51,15 +55,16 @@ class Store(object):
             pickle.dump(getattr(self, name), open(self.locs[name], 'w'))
 
     def ignore(self, item, n=1):
-        '''increment the counter inside ignored and subsequently ignore it n more times'''
+        '''increment the counter inside ignored, which causes events to that path to be ignored n times'''
         self.ignored[item] += n
         
     def wants(self, pth):
         '''
         Returns if the pth is supposed to be optimized
         to work around watchdog picking up modified file paths at an indeterminate point
-        in time, we maintain a counter of how many times to ignore it (i.e. once if we touch
-        a file ourselves)
+        in time, we maintain a counter of how many times to ignore it
+        e.g. if we create a new file in a directory that watchdog is watching we can expect to receive
+        2 events, file_created and file_modified and increase its counter to 2
         '''
         counter = self.ignored[pth]
         if counter < 0:
