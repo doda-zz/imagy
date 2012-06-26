@@ -19,7 +19,7 @@ class Store(object):
         )
               
     def __init__(self, dir=None):
-        self.locs = {}
+        self.locations = {}
         self.clear()
         self.dir = dir
         if dir is None:
