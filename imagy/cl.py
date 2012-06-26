@@ -47,7 +47,7 @@ def _main(opts, args):
     if not opts.memorystore:
         store_path = opts.store_path
         if store_path is None:
-            imagy_at_home = path('~/%s' % IMAGY_HOME).expanduser()
+            imagy_at_home = path('~/%s' % IMAGY_DIR_NAME).expanduser()
             logging.info('Storing settings in %s, you can modify this path in config.py under STORE_PATH',
                          imagy_at_home)
             store_path = imagy_at_home
