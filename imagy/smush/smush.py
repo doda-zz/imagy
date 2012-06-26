@@ -26,7 +26,7 @@ class Smush():
         self.__files_scanned = 0
         self.__start_time = time.time()
         self.exclude = {}
-        for dir in kwargs.get('exclude'):
+        for dir in kwargs.get('exclude', []):
             if len(dir) == 0:
                 continue
             self.exclude[dir] = True
