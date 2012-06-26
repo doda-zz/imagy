@@ -9,7 +9,7 @@ from utils import filesig
 from smush import Smush
 from path import path
 
-smusher = Smush(strip_jpg_meta=STRIP_JPG_META, exclude=['.bzr', '.git', '.hg', '.svn'], list_only=False, quiet=True, identify_mime=True)
+smusher = Smush(strip_jpg_meta=STRIP_JPG_META, list_only=False, quiet=True, identify_mime=True)
 
 def compress_image(pth, smusher=smusher):
     '''
