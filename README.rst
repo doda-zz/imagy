@@ -72,7 +72,12 @@ Afterwards you can let imagy start watching the directory (and all directories u
 Credits
 -----------------
 
-In the background Imagy uses the awesome library ``smush.py`` which exposes a general interface to handle the various file types.
+In the background Imagy uses the awesome library smush.py_ which exposes a general interface to handle the various file types.
+
+.. _smush.py: https://github.com/thebeansgroup/smush.py
+
+Notes
+-----------------
 
 
 
