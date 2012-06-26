@@ -1,6 +1,6 @@
 from path import path
 
-IMAGY_HOME = '.imagy'
+IMAGY_DIR_NAME = '.imagy'
 
 OPTIMIZE_ON_CREATE = True
 OPTIMIZE_ON_CHANGE = True
