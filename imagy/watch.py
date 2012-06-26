@@ -32,16 +32,14 @@ def start(dirs):
     global running
     running = True
     event_handler, observer = CompressionHandler(), Observer()
-    scheduled = False
     for dir in dirs:
         dir = path(dir).abspath()
         if dir.isdir():
             observer.schedule(event_handler, path=dir, recursive=True)
             logging.warning('watching %s', dir)
-            scheduled = True
         else:
             logging.warning('%s is not a directory', dir)
-    if not scheduled:
+    if not observer._watches:
         logging.error('No valid directories specified. Exiting')
         return
     
