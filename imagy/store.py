@@ -1,21 +1,25 @@
 from path import path
-import pickle
 import logging
 from collections import defaultdict
+try:
+    import simplejson as json
+except ImportError:
+    import json
 
 class Store(object):
     '''
     Keeps track of originals and - optionally - persists them to disk
-    the actual dictionaries alongside their respective pickle paths get created dynamically with get/setattr
+    the actual dictionaries alongside their respective paths get created dynamically with get/setattr
+    the 4th value specifies the individual mappings to allow restoring from JSON
     '''
     STORES = (
         # used if we mess with a file and don't want watchdog to pick it up
-        ('ignored', lambda:defaultdict(int), 'ignored.p'),
+        ('ignored', lambda *args:defaultdict(int, *args), 'ignored.p', (path, None)),
         # used to restore original files in case of --revert
-        ('originals', dict, 'originals.p'),
+        ('originals', dict, 'originals.p', (path, path)),
         # maintained to quickly check if a stored original has been modified
         # if we mark it and ask what to do upon --revert
-        ('storedat', dict, 'storedat.p'),
+        ('storedat', dict, 'storedat.p', (path, str)),
         )
               
     def __init__(self, dir=None):
@@ -29,19 +33,20 @@ class Store(object):
 
     def clear(self):
         '''initialize data stores to emptiness'''
-        for name, typ, loc in self.STORES:
-            setattr(self, name, typ())
+        for name, data_type, loc, (k_type, v_type) in self.STORES:
+            setattr(self, name, data_type())
             
     def load(self, dir):
         '''tries to load files from the dir, if the directory or a file doesn't exist, do nothing'''
         self.dir = dir = path(dir)
         if not dir.exists():
             return
-        for name, typ, loc in self.STORES:
+        for name, data_type, loc, (k_type, v_type) in self.STORES:
             thing_loc = dir.joinpath(loc)
             self.locations[name] = thing_loc
             if thing_loc.exists():
-                setattr(self, name, pickle.load(open(thing_loc)))
+                setattr(self, name, data_type((k_type(k), v_type(v)) for k,v in
+                                               json.load(open(thing_loc)).iteritems()))
                 logging.debug('loaded %s from %s', name, thing_loc)
 
     def save(self):
@@ -51,8 +56,8 @@ class Store(object):
             return
         if not dir.exists():
             dir.mkdir()
-        for name, typ, loc in self.STORES:
-            pickle.dump(getattr(self, name), open(self.locations[name], 'w'))
+        for name, _, _, _ in self.STORES:
+            json.dump(getattr(self, name), open(self.locations[name], 'w'))
 
     def ignore(self, item, n=1):
         '''increment the counter inside ignored, which causes events to that path to be ignored n times'''
