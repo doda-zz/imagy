@@ -58,7 +58,6 @@ class ImagyTestCase(unittest.TestCase):
         doing system testing with unittest ... why not?!
         
         wait upto `sleep` seconds for the test to pass
-        incredibly hackish and very probably not >the< way to do it, but alas..
         '''
         classfun = getattr(self, classfun)
         for _ in range(int(sleep/res)):
