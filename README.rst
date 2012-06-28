@@ -79,7 +79,7 @@ In the background Imagy uses the awesome library smush.py_ which exposes a gener
 Notes
 -----------------
 
-I use Imagy *in production* at sc2wow.com_. I was able to save 150kB off my frontpage load, saving anywhere from 5% to 45% per image, though your results may differ.
+I use Imagy in production at sc2wow.com_. I was able to save 150kB off my frontpage load, saving anywhere from 5% to 45% per image, though your results may differ.
 
 .. _sc2wow.com: http://sc2wow.com
 
