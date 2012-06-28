@@ -46,7 +46,7 @@ class ImagyTestCase(unittest.TestCase):
     def teardown(self):
         if self.tmp.exists():
             self.tmp.rmtree()
-        if self.proc:
+        if isinstance(self.proc, Popen):
             self.proc.terminate()
     __teardown = teardown
 
