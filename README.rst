@@ -22,12 +22,6 @@ Imagy relies on a few select binaries_ to perform image optimization. On Ubuntu 
 That's it. 
 
 
-
-More information on how to install pip_
-
-.. _pip: http://www.pip-installer.org/en/latest/installing.html#prerequisites
-
-
 Running it for the first time
 -----------------
 
@@ -61,6 +55,10 @@ Notes
 Imagy in production at sc2wow.com_. I was able to save 150kB off my frontpage load, saving anywhere from 5% to 50% per image, though your results may differ.
 
 .. _sc2wow.com: http://sc2wow.com
+
+More information on how to install pip_
+
+.. _pip: http://www.pip-installer.org/en/latest/installing.html#prerequisites
 
 
 Dependencies
