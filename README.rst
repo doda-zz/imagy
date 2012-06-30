@@ -21,9 +21,14 @@ Imagy relies on a few select binaries_ to perform image optimization. On Ubuntu 
 
 That's it. 
 
+
+pip
+-----------------
+
 If you don't have pip installed, you can find more information here_: 
 
 .. _here: http://www.pip-installer.org/en/latest/installing.html#prerequisites
+
 
 Running it for the first time
 -----------------
@@ -38,7 +43,7 @@ Imagy will run through the directory ``/awesome/images/`` and all its subdirecto
 The algorithms used are stable (don't further modify files after multiple invocations), however to make trying Imagy out as easy as possible, the default is to keep original files around for later reversal. For example the file ``/file.jpg`` would be copied to ``/file-original.jpg`` before optimization. If the optimized fileis not smaller than the original, no copy gets stored and the original file remains unchanged.
 
 
-Example Usage
+Further Usage
 -----------------
 
 If after some time you wish to stop using Imagy, run ``imagy --revert`` which will move all original images back to their initial location.
