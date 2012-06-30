@@ -14,12 +14,12 @@ class Store(object):
     '''
     STORES = (
         # used if we mess with a file and don't want watchdog to pick it up
-        ('ignored', lambda *args:defaultdict(int, *args), 'ignored.p', (path, None)),
+        ('ignored', lambda *args:defaultdict(int, *args), 'ignored.json', (path, None)),
         # used to restore original files in case of --revert
-        ('originals', dict, 'originals.p', (path, path)),
+        ('originals', dict, 'originals.json', (path, path)),
         # maintained to quickly check if a stored original has been modified
         # if we mark it and ask what to do upon --revert
-        ('storedat', dict, 'storedat.p', (path, str)),
+        ('storedat', dict, 'storedat.json', (path, str)),
         )
               
     def __init__(self, dir=None):
