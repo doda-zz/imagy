@@ -5,7 +5,7 @@ from config import *
 
 from utils import make_path, same_file, MARK
 from store import store
-from smushing import compress_image
+from smushing import compress_with_touch
 import watch
 from path import path
 import logging
@@ -66,7 +66,7 @@ def handle_file(pth):
             storedat = store_original(pth)
     # the original gets briefly added to ignore so watchdog doesnt pick it up
     ignore_file(pth)
-    compress_image(pth)
+    compress_with_touch(pth)
     if KEEP_ORIGINALS:
         # only keep the file if we actually optimized it
         if same_file(storedat, pth):
