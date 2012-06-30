@@ -3,6 +3,7 @@ A wrapper around the smush.py library
 
 the library itself has been modifed to make it work with the binaries included in most package managers (to custom patches + recompiling
 '''
+
 from config import STRIP_JPG_META
 from utils import filesig
 
