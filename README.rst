@@ -22,12 +22,10 @@ Imagy relies on a few select binaries_ to perform image optimization. On Ubuntu 
 That's it. 
 
 
-pip
------------------
 
-If you don't have pip installed, you can find more information here_: 
+More information on how to install pip_
 
-.. _here: http://www.pip-installer.org/en/latest/installing.html#prerequisites
+.. _pip: http://www.pip-installer.org/en/latest/installing.html#prerequisites
 
 
 Running it for the first time
