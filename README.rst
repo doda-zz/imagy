@@ -4,26 +4,13 @@ Imagy - make your website's images load upto 50% faster
 Imagy is a file daemon, that watches your website's media root (where your images are stored) and automatically optimizes image files that are created or modified within. 
 
 Imagy uses *lossless compression*, so your users never have to load unnecessary bytes. Your images look the same, but load faster.
-
-A lot of work has gone into making it ``set-and-forget``. Instead of having to code up deamons, file watches and handle different file formats on your own, Imagy does all the work for you. All you need to do is
-::
-
-    imagy /awesome/images/
-    
-and Imagy will start watching the directory ``/awesome/images/`` and all its subdirectories for images that get created or modified.
-
-The algorithms used are stable (don't further modify files after multiple invocations), however to make trying Imagy out as easy as possible, the default is to keep original files around for later reversal. 
-
-If you wish to stop using Imagy, run ``imagy --revert`` which will move all original images back to their initial location
-
-If you have (rightfully) come to the conclusion that you don't really need to keep originals around, set ``KEEP_ORIGINALS`` in ``config.py`` to ``False``. If you want to delete all already stored originals run ``imagy --deloriginals``.
-
-
+ 
 Getting Started 
 -----------------
 
+Imagy relies on a few select binaries_ to perform image optimization. On Ubuntu (tested on 11.10) you can install everything with:
 
-Imagy depends on a bunch of binaries (listed at the bottom) for image optimization. On Ubuntu (tested on 11.10) you can install everything with:
+.. _binaries: https://github.com/doda/imagy#dependencies
 
 ::
 
@@ -32,42 +19,31 @@ Imagy depends on a bunch of binaries (listed at the bottom) for image optimizati
     pip install imagy
     
 
-That's it. Try it by running ``imagy``.
+That's it. 
 
-If you don't have pip installed, you can find more information here: http://www.pip-installer.org/en/latest/installing.html#prerequisites
+If you don't have pip installed, you can find more information here_: 
+
+.. _here: http://www.pip-installer.org/en/latest/installing.html#prerequisites
+
+Running it for the first time
+-----------------
+
+A lot of work has gone into making it ``set-and-forget``. If you're running it for the first time, this command should be all you need:
+::
+
+    imagy /awesome/images/
+    
+Imagy will run through the directory ``/awesome/images/`` and all its subdirectories and optimize all image files it finds. After that it will watch these directories for images that get created or modified.
+
+The algorithms used are stable (don't further modify files after multiple invocations), however to make trying Imagy out as easy as possible, the default is to keep original files around for later reversal. For example the file ``/file.jpg`` would be copied to ``/file-original.jpg`` before optimization. If the optimized fileis not smaller than the original, no copy gets stored and the original file remains unchanged.
 
 
 Example Usage
 -----------------
 
-When starting out you can tell Imagy to optimize (initialize) a directory of new images:
+If after some time you wish to stop using Imagy, run ``imagy --revert`` which will move all original images back to their initial location.
 
-::
-
-    $ ll img
-    total 52K
-    -rw-rw-r-- 1 ddd ddd 50K 2012-06-23 14:45 beach.jpg
-    $ imagy --init img
-    2012-06-23 14:48:27,133 INFO         Imagy started
-    2012-06-23 14:48:27,133 INFO         Storing settings in /home/ddd/.imagy, you can modify this path in config.py under STORE_PATH
-    2012-06-23 14:48:27,134 INFO         looking for not yet optimized files
-    2012-06-23 14:48:27,134 INFO         Compressing file /home/ddd/img/beach.jpg
-    $ ll img
-    total 80K
-    -rw-rw-r-- 1 ddd ddd 25K 2012-06-23 14:48 beach.jpg
-    -rw-rw-r-- 1 ddd ddd 50K 2012-06-23 14:48 beach-original.jpg
-
-Afterwards you can let imagy start watching the directory (and all directories underneath it) by running
-
-::
-
-    $ imagy img
-    2012-06-23 14:52:24,794 INFO         Imagy started
-    2012-06-23 14:52:24,794 INFO         Storing settings in /home/ddd/.imagy, you can modify this path in config.py under STORE_PATH
-    2012-06-23 14:52:24,795 WARNING      watching /home/ddd/img
-    2012-06-23 14:52:24,796 INFO         waiting for files
-    2012-06-23 14:52:24,796 INFO         Ctrl-C to quit
-
+If you have (rightfully) come to the conclusion that you don't really need to keep originals around, set ``KEEP_ORIGINALS`` in ``config.py`` to ``False``. If you want to delete all already stored originals run ``imagy --deloriginals``.
 
 Credits
 -----------------
@@ -79,7 +55,7 @@ In the background Imagy uses the awesome library smush.py_ which exposes a gener
 Notes
 -----------------
 
-I use Imagy in production at sc2wow.com_. I was able to save 150kB off my frontpage load, saving anywhere from 5% to 45% per image, though your results may differ.
+Imagy in production at sc2wow.com_. I was able to save 150kB off my frontpage load, saving anywhere from 5% to 50% per image, though your results may differ.
 
 .. _sc2wow.com: http://sc2wow.com
 
