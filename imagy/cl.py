@@ -4,6 +4,7 @@
 from core import *
 from utils import dump
 from functools import partial
+import watch
 
 import sys
 import optparse
@@ -14,14 +15,16 @@ logging.disable(logging.NOTSET)
 FORMAT = '%(asctime)-15s %(levelname)-12s %(message)s'
 
 parser = optparse.OptionParser('Optimize images')
-
 true_flag = partial(parser.add_option, action="store_true", default=False)
+
+
 true_flag('-c', '--clear', help=clear.__doc__)
 true_flag('-l', '--list', help=list_files.__doc__)
 true_flag('-r', '--revert', help=revert.__doc__)
 true_flag('-f', '--files', help=do_files.__doc__)
 true_flag('-q', '--quiet', help='no output')
 true_flag('-m', '--memorystore', help='store internals in memory')
+ 
 true_flag('--deloriginals', help=delete_originals.__doc__)
 true_flag('--debug', help='set logging to DEBUG')
 true_flag('--no-init', dest='no_init', help='do not check directories for not yet optimized files')
