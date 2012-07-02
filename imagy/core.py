@@ -5,7 +5,7 @@ from config import *
 
 from utils import make_path, same_file, MARK
 from store import store
-from smushing import compress_with_touch
+from libsmush import compress_with_touch
 import watch
 from path import path
 import logging
