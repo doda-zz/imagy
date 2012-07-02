@@ -72,7 +72,7 @@ def _main(opts, args):
         # and then run the daemon afterwards
         if not opts.no_init:
             initialize(*args)
-        watch.start(args)
+        watch.watcher.run(*args)
     
 def main():
     try:
@@ -81,7 +81,7 @@ def main():
         try:
             store.save()
         except Exception, e:
-            logging.error('unable to save %s', str(e))
+            logging.error('unable to save %s', e)
         else:
             logging.debug('saved to %s', store.dir)
             
