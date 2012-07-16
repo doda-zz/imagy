@@ -8,9 +8,7 @@ Imagy uses *lossless compression*, so your users never have to load unnecessary 
 Getting Started 
 -----------------
 
-Imagy relies on a few select binaries_ to perform image optimization. On Ubuntu (tested on 11.10) you can install everything with:
-
-.. _binaries: https://github.com/doda/imagy#dependencies
+Imagy relies on a few select `binaries <https://github.com/doda/imagy#dependencies>`_ to perform image optimization. On Ubuntu (tested on 11.10) you can install everything with:
 
 ::
 
@@ -20,7 +18,6 @@ Imagy relies on a few select binaries_ to perform image optimization. On Ubuntu 
     
 
 That's it. 
-
 
 Running it for the first time
 -----------------
@@ -34,7 +31,6 @@ Imagy will run through the directory ``/awesome/images/`` and all its subdirecto
 
 The algorithms used are stable (don't further modify files after multiple invocations), however to make trying Imagy out as easy as possible, the default is to keep original files around for later reversal. For example the file ``/file.jpg`` would be copied to ``/file-original.jpg`` before optimization. If the optimized fileis not smaller than the original, no copy gets stored and the original file remains unchanged.
 
-
 Further Usage
 -----------------
 
@@ -45,21 +41,14 @@ If you have (rightfully) come to the conclusion that you don't really need to ke
 Credits
 -----------------
 
-In the background Imagy uses the awesome library smush.py_ which exposes a general interface to handle the various file types.
-
-.. _smush.py: https://github.com/thebeansgroup/smush.py
+In the background Imagy uses the awesome library `smush.py <https://github.com/thebeansgroup/smush.py>`_ which exposes a general interface to handle the various file types.
 
 Notes
 -----------------
 
-Imagy in production at sc2wow.com_. I was able to save 150kB off my frontpage load, saving anywhere from 5% to 50% per image, though your results may differ.
+I use Imagy in production at `sc2wow.com <http://sc2wow.com>`_. I was able to save 150kB off my frontpage load, saving anywhere from 5% to 50% per image, though your results may differ.
 
-.. _sc2wow.com: http://sc2wow.com
-
-More information on how to install pip_
-
-.. _pip: http://www.pip-installer.org/en/latest/installing.html#prerequisites
-
+`Here's more information on how to install pip <http://www.pip-installer.org/en/latest/installing.html#prerequisites>`_
 
 Dependencies
 -----------------

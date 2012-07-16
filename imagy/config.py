@@ -33,3 +33,5 @@ IMAGE_EXTENSIONS = ['.'+ext for ext in IMAGE_EXTENSIONS]
 # the location where imagy stores its internals, if this is `None` at startup, imagy will ask where it should store
 
 STORE_PATH = None
+
+TRIAL_RUN = False
