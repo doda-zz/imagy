@@ -3,7 +3,6 @@ import filecmp
 from tempfile import NamedTemporaryFile
 import os
 
-
 # the mark that is used to identify stored originals that have been modified
 MARK = '!'
 

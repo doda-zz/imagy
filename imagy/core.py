@@ -123,7 +123,7 @@ def find_storage_space(pth, identifier=ORIGINAL_IDENTIFIER):
 
 def ignore_file(pth, store=store):
     '''before touching a file we tell store how many events it should ignore for it'''
-    if not watch.running:
+    if not watch.watcher.running:
         return
     # if the file doesnt exist watchdog sends create and modify else just modify
     n = 1 if pth.exists() else 2
@@ -139,4 +139,3 @@ def delete_originals():
         # using remove_p as it doesnt raise an exc if the path doesnt exist
         storedat.remove_p()
         clear_record(pth, storedat)
-        
