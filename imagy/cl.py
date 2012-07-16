@@ -18,7 +18,6 @@ FORMAT = '%(asctime)-15s %(levelname)-12s %(message)s'
 parser = optparse.OptionParser('Optimize images')
 true_flag = partial(parser.add_option, action="store_true", default=False)
 
-
 true_flag('-c', '--clear', help=clear.__doc__)
 true_flag('-l', '--list', help=list_files.__doc__)
 true_flag('-r', '--revert', help=revert.__doc__)
