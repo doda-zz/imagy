@@ -50,6 +50,7 @@ def handle_evented_file(pth):
         return
     if pth in store.storedat:
         if not store.storedat[pth]:
+            # only warn on first modification
             logging.warning('%s, a stored original has been modified - will ask what to do at --revert', pth)
             store.storedat[pth] = MARK
     else:
@@ -99,9 +100,9 @@ def list_files():
     logging.info('%s files', i)
         
 def store_original(pth, storedat=None):
-    '''Store the original'''
-    # get an unused file name to store the original
+    '''Store a copy of the original and return its location'''
     if not storedat:
+        # get an unused file name to store the original
         storedat = find_storage_space(pth)
     ignore_file(storedat)
     logging.debug('pushing original to %s', storedat)
