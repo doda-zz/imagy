@@ -84,7 +84,7 @@ def initialize(*dirs):
 def do_files(*files):
     '''Optimize all given files'''
     touched_files = set(pth for kv in store.originals.items() for pth in kv)
-    for pth in [path(p).abspath() for p in files]:
+    for pth in (path(p).abspath() for p in files):
         if pth in touched_files:
             logging.info('ignoring %s', pth)
         else:
@@ -104,8 +104,8 @@ def store_original(pth, storedat=None):
     if not storedat:
         # get an unused file name to store the original
         storedat = find_storage_space(pth)
-    ignore_file(storedat)
     logging.debug('pushing original to %s', storedat)
+    ignore_file(storedat)
     pth.copy(storedat)
     # check if the copy was successful
     if not same_file(pth, storedat):
