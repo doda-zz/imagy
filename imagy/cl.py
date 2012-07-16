@@ -1,11 +1,11 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 
+import config
 from core import *
 from utils import dump
 from functools import partial
 import watch
-import config
 
 import sys
 import optparse
@@ -24,6 +24,7 @@ true_flag('-r', '--revert', help=revert.__doc__)
 true_flag('-f', '--files', help=do_files.__doc__)
 true_flag('-q', '--quiet', help='no output')
 true_flag('-m', '--memorystore', help='store internals in memory')
+true_flag('-d', '--dry-run', dest='dry_run', help='perform a trial run with no changes made')
  
 true_flag('--deloriginals', help=delete_originals.__doc__)
 true_flag('--debug', help='set logging to DEBUG')
@@ -44,8 +45,8 @@ def _main(opts, args):
     if opts.quiet:
         logging.disable(logging.CRITICAL)
 
-    if opts.trial_run:
-        config.TRIAL_RUN = True
+    if opts.dry_run:
+        config.DRY_RUN = True
 
     logging.info('Imagy started')
     logging.debug(map(str, (args, opts)))
@@ -59,7 +60,7 @@ def _main(opts, args):
             store_path = imagy_at_home
         store.load(store_path)
         
-    args = [path(arg) for arg in args or FILE_PATTERNS if arg]
+    args = [path(arg) for arg in (args or FILE_PATTERNS) if arg]
     run_daemon = opts.run
 
     if opts.clear: clear()
@@ -70,9 +71,9 @@ def _main(opts, args):
     elif opts.deloriginals: delete_originals()
     else: run_daemon = True
 
+    # if no specific mode specified so far, just run `smart mode` i.e. initialize the directories
+    # and then run the daemon afterwards
     if run_daemon:
-        # if nothing specified so far, just run `smart mode` i.e. initialize the directories
-        # and then run the daemon afterwards
         if not opts.no_init:
             initialize(*args)
         watch.watcher.run(*args)
