@@ -34,5 +34,4 @@ IMAGE_EXTENSIONS = ['.'+ext for ext in IMAGE_EXTENSIONS]
 
 STORE_PATH = None
 
-DRY_RUN = False
-
+TRIAL_RUN = False
