@@ -1,4 +1,4 @@
-Imagy - make your website's images load upto 50% faster
+Imagy - make your website's images load up to 50% faster
 ===============
 
 Imagy is a file daemon, that watches your website's media root (where your images are stored) and automatically optimizes image files that are created or modified within. 
