@@ -2,11 +2,11 @@
 Below is an abstraction of actions, this allows greater power in modifying the behavior of the system,
 for example in implementing --dry-run without littering the code with:
 
-if config.DRY_RUN:
+if not DRY_RUN:
     actually_do_stuff()
 
 instead everything that possibly affects the system is an Action instance that disguises as a callable
-so we can have control over logging and actual invocation from one place
+so we can have greater control over logging and actual invocation from one place
 
 #separationofconcernswin
 '''
@@ -31,6 +31,7 @@ class Action(object):
 class Move(Action):
     def run(self, pth, pth2):
         path(pth).move(pth2)
+
 move = Move()
 
 move('/home/ddd/a', '/home/ddd/a2')
