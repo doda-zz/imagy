@@ -13,7 +13,7 @@ def make_path(p, sep='_'):
     name, ext = p.splitext()
     n = 1
     while p.exists():
-        p = path(name + '%s%s%s' % (sep, n, ext))
+        p = path('%s%s%s%s' % (name, sep, n, ext))
         n += 1
     return p
 
