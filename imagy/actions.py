@@ -11,8 +11,8 @@ so we can have greater control over logging and actual invocation from one place
 #separationofconcernswin
 '''
 
-
 from path import path
+
 class Action(object):
     def __init__(self, domsg):
         self.domsg = domsg
