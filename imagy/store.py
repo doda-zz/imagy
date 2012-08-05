@@ -68,8 +68,8 @@ class Store(object):
         Returns if the pth is supposed to be optimized
         to work around watchdog picking up modified file paths at an indeterminate point
         in time, we maintain a counter of how many times to ignore it
-        e.g. if we create a new file in a directory that watchdog is watching we can expect to receive
-        2 events, file_created and file_modified and increase its counter to 2
+        e.g. if we create a new file in a directory that watchdog is watching we can expect
+        to receive 2 events, file_created and file_modified and increase its counter to 2
         '''
         counter = self.ignored[pth]
         if counter < 0:
@@ -82,3 +82,4 @@ class Store(object):
             return False
             
 store = Store()
+
