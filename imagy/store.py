@@ -1,10 +1,12 @@
 from path import path
 import logging
-from collections import defaultdict
+from collections import defaultdict, namedtuple
 try:
     import simplejson as json
 except ImportError:
     import json
+
+SubStore = namedtuple('name init filename mapping')
 
 class Store(object):
     '''
@@ -13,51 +15,62 @@ class Store(object):
     the 4th value specifies the individual mappings to allow restoring from JSON
     '''
     STORES = (
-        # used if we mess with a file and don't want watchdog to pick it up
-        ('ignored', lambda *args:defaultdict(int, *args), 'ignored.json', (path, None)),
+        # used if we modify a file and don't want watchdog to pick it up
+        SubStore('ignored', lambda *args:defaultdict(int, *args), 'ignored.json', (path, None)),
+
         # used to restore original files in case of --revert
-        ('originals', dict, 'originals.json', (path, path)),
+        SubStore('originals', dict, 'originals.json', (path, path)),
+
         # maintained to quickly check if a stored original has been modified
         # if we mark it and ask what to do upon --revert
-        ('storedat', dict, 'storedat.json', (path, str)),
+        SubStore('storedat', dict, 'storedat.json', (path, str)),
         )
               
     def __init__(self, dir=None):
-        self.locations = {}
+        self.filepaths = {}
         self.clear()
         self.dir = dir
-        if dir is None:
-            self.clear()
-        else:
+        if dir is not None:
             self.load(dir)
 
     def clear(self):
         '''initialize data stores to emptiness'''
-        for name, data_type, loc, (k_type, v_type) in self.STORES:
-            setattr(self, name, data_type())
+        for substore in self.STORES:
+            setattr(self, substore.name, substore.data_type())
             
-    def load(self, dir):
+    def load(self):
         '''tries to load files from the dir, if the directory or a file doesn't exist, do nothing'''
-        self.dir = dir = path(dir)
+        dir = self.dir = dir = path(dir)
         if not dir.exists():
             return
         for name, data_type, loc, (k_type, v_type) in self.STORES:
-            thing_loc = dir.joinpath(loc)
-            self.locations[name] = thing_loc
-            if thing_loc.exists():
-                setattr(self, name, data_type((k_type(k), v_type(v)) for k,v in
-                                               json.load(open(thing_loc)).iteritems()))
-                logging.debug('loaded %s from %s', name, thing_loc)
+        for substore in self.STORES:
+            filepath = dir.joinpath(substore.filename)
+            self.filepaths[substore.name] = filepath
+            try:
+                with open(filepath) as f:
+                    loaded = json.load(f)
+                k_type, v_type = substore.mapping
+                value = substore.init((k_type(k), v_type(v)) for k, v in loaded.iteritems())
+                setattr(self, substore.name, value)
+            except:
+                msg = 'couldnt load %s from %s'
+                if not filepath.exists():
+                    msg += ', no such file'
+                logging.debug(msg, name, thing_loc, exc_info=True)
+            else:
+                logging.debug('successfully loaded %s from %s', name, thing_loc)
 
     def save(self):
         '''save to disk, creates directory if necessary'''
         dir = self.dir
-        if not dir:
+        if dir is None:
             return
         if not dir.exists():
-            dir.mkdir()
-        for name, _, _, _ in self.STORES:
-            json.dump(getattr(self, name), open(self.locations[name], 'w'))
+            dir.makedirs_p()
+        for substore in self.STORES:
+            with open(self.filepaths[substore.name], 'w') as f:
+                json.dump(getattr(self, substore.name), f)
 
     def ignore(self, item, n=1):
         '''increment the counter inside ignored, which causes events to that path to be ignored n times'''
@@ -73,13 +86,13 @@ class Store(object):
         '''
         counter = self.ignored[pth]
         if counter < 0:
-            # ignore forever
+            # ignore indefinitely
             return False
-        elif counter == 0: # default case
-            return True
         elif counter > 0:
             self.ignored[pth] -= 1
             return False
+        # 0 default case
+        return True
             
 store = Store()
 
