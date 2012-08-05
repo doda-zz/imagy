@@ -127,7 +127,7 @@ def ignore_file(pth, store=store):
     '''before touching a file we tell store how many events it should ignore for it'''
     if not watch.watcher.running:
         return
-    # if the file doesnt exist watchdog sends create and modify else just modify
+    # if the file exists watchdog sends `modify` if not it also sends `create` beforehand
     n = 1 if pth.exists() else 2
     store.ignore(pth, n)
 
@@ -138,6 +138,6 @@ def delete_originals():
     '''Delete all originals, useful if you want to switch KEEP_ORIGINALS to False'''
     for pth, storedat in store.originals.items():
         logging.debug('removing %s', storedat)
-        # using remove_p as it doesnt raise an exc if the path doesnt exist
+        # using remove_p as it doesnt raise an Exception if the path doesnt exist
         storedat.remove_p()
         clear_record(pth, storedat)
