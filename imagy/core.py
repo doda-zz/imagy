@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# all uppercase
+# all config values are constant & uppercase
 from config import *
 
 from utils import make_path, same_file, MARK
@@ -13,7 +13,8 @@ logging.disable(logging.CRITICAL)
 
 def revert():
     '''Move stored originals back to their initial location'''
-    # sort to get as many un-marked paths that require no user input, until prompting for further instruction
+    # sort to get as many un-marked paths that require no user input,
+    # until prompting for further instruction (storedat.values() are either None or MARK)
     logging.info('reverting %s files', len(store.originals))
     for pth, storedat in sorted(store.originals.items(), key=lambda (k, v):store.storedat[v]):
         move = True
