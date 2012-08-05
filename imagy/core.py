@@ -131,7 +131,7 @@ def ignore_file(pth, store=store):
     n = 1 if pth.exists() else 2
     store.ignore(pth, n)
 
-def correct_ext(pth, exts=IMAGE_EXTENSIONS):
+def correct_ext(pth, exts=set(IMAGE_EXTENSIONS)):
     return pth.splitext()[1] in exts
 
 def delete_originals():
