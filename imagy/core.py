@@ -100,7 +100,7 @@ def list_files():
     logging.info('%s files', i)
         
 def store_original(pth, storedat=None):
-    '''Store a copy of the original and return its location'''
+    '''Store a copy of the original and return the copy's location'''
     if not storedat:
         # get an unused file name to store the original
         storedat = find_storage_space(pth)
