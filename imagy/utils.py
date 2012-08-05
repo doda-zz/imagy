@@ -35,3 +35,14 @@ def dump(store):
     from pprint import pprint
     for p in (store.originals, store.storedat, store.ignored):
         pprint(p)
+
+def callable_or_value(obj):
+    if callable(obj):
+        return obj()
+    return obj
+
+def do(obj, default=None):
+    if not config.DRY_RUN:
+        return callable_or_value(f)
+    return callable_or_value(default)
+        
