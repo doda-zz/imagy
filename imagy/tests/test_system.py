@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import unittest
-# todo: remove *s
 from imgtest import *
 from imagy.config import *
 from imagy.core import *
+# todo: be less like her http://farm3.static.flickr.com/2465/3898431077_b9c5583b12.jpg
 from path import path
 from subprocess import Popen, call
 
