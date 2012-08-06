@@ -15,6 +15,10 @@ import logging
 logging.disable(logging.NOTSET)
 FORMAT = '%(asctime)-15s %(levelname)-12s %(message)s'
 
+def version():
+    '''print version of Imagy'''
+    print imagy.__version__
+    
 parser = optparse.OptionParser('Optimize images')
 true_flag = partial(parser.add_option, action="store_true", default=False)
 
@@ -24,6 +28,7 @@ true_flag('-r', '--revert', help=revert.__doc__)
 true_flag('-f', '--files', help=do_files.__doc__)
 true_flag('-q', '--quiet', help='no output')
 true_flag('-m', '--memorystore', help='store internals in memory')
+true_flag('-v', '--version', help=version.__doc__)
  
 true_flag('--deloriginals', help=delete_originals.__doc__)
 true_flag('--debug', help='set logging to DEBUG')
@@ -68,6 +73,7 @@ def _main(opts, args):
     elif opts.list: list_files()
     elif opts.files: do_files(*args)
     elif opts.deloriginals: delete_originals()
+    elif opts.version: version()
     else: run_daemon = True
 
     if run_daemon:
