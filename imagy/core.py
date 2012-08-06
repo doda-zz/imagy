@@ -85,7 +85,8 @@ def initialize(*dirs):
 def do_files(*files):
     '''Optimize all given files'''
     touched_files = set(pth for kv in store.originals.items() for pth in kv)
-    for pth in (path(p).abspath() for p in files):
+    for file in files:
+        pth = path(file).abspath()
         if pth in touched_files:
             logging.info('ignoring %s', pth)
         else:
