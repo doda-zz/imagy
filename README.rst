@@ -48,7 +48,7 @@ Notes
 
 I use Imagy in production at `sc2wow.com <http://sc2wow.com>`_. I was able to save 150kB off my frontpage load, saving anywhere from 5% to 50% per image, though your results may differ.
 
-`Here's more information on how to install pip <http://www.pip-installer.org/en/latest/installing.html#prerequisites>`_
+`More information on how to install pip <http://www.pip-installer.org/en/latest/installing.html#prerequisites>`_
 
 Dependencies
 -----------------
@@ -57,4 +57,4 @@ Dependencies
 - gifsicle
 - jpegtran (on ubuntu in libjpeg-progs)
 - pngcrush
-- pngnq 
+..- pngnq 
