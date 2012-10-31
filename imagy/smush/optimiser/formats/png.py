@@ -17,8 +17,9 @@ class OptimisePNG(Optimiser):
             pngcrush = 'pngcrush -rem alla -brute -reduce "__INPUT__" "__OUTPUT__"'
 
         # the command to execute this optimiser
-        self.commands = ('pngnq -n 256 "__INPUT__"',
-                         pngcrush
+        self.commands = (# pngnq seems to degrade visual quality, disable for now
+                         #'pngnq -n 256 "__INPUT__"',
+                         pngcrush,
                          )
 
         # format as returned by 'identify'
