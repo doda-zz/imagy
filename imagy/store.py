@@ -6,13 +6,17 @@ try:
 except ImportError:
     import json
 
-SubStore = namedtuple('name init filename mapping')
+SubStore = namedtuple('SubStore', 'name init filename mapping')
+'''
+init is a function to initialize and re-vivify the individual substore
+mapping is a tuple consisting of the respective key, value data types in order to load
+from JSON
+'''
 
 class Store(object):
     '''
-    Keeps track of originals and - optionally - persists them to disk
-    the actual dictionaries alongside their respective paths get created dynamically with get/setattr
-    the 4th value specifies the individual mappings to allow restoring from JSON
+    Keeps track of optimized files, backups and potentially persists them to disk
+    the actual attributes get created dynamically with get/setattr
     '''
     STORES = (
         # used if we modify a file and don't want watchdog to pick it up
