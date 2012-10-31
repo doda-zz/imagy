@@ -17,10 +17,9 @@ class ImagyTestCase(unittest.TestCase):
         'gifgif':'gifgif.gif'
         }
     imagy = ['imagy']
-    imagy_mem = ['imagy', '-m']
     if QUIET:
         imagy += ['-q']
-        imagy_mem += ['-q']
+    imagy_mem = imagy + ['-m']
         
     def __init__(self, *args, **kwargs):
         super(ImagyTestCase, self).__init__(*args, **kwargs)
