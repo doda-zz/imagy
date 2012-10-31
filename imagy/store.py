@@ -36,30 +36,30 @@ class Store(object):
     def clear(self):
         '''initialize data stores to emptiness'''
         for substore in self.STORES:
-            setattr(self, substore.name, substore.data_type())
+            setattr(self, substore.name, substore.init())
             
     def load(self):
         '''tries to load files from the dir, if the directory or a file doesn't exist, do nothing'''
         dir = self.dir = dir = path(dir)
         if not dir.exists():
             return
-        for name, data_type, loc, (k_type, v_type) in self.STORES:
         for substore in self.STORES:
+            name = substore.name
             filepath = dir.joinpath(substore.filename)
-            self.filepaths[substore.name] = filepath
+            self.filepaths[name] = filepath
             try:
                 with open(filepath) as f:
                     loaded = json.load(f)
                 k_type, v_type = substore.mapping
                 value = substore.init((k_type(k), v_type(v)) for k, v in loaded.iteritems())
-                setattr(self, substore.name, value)
+                setattr(self, name, value)
             except:
                 msg = 'couldnt load %s from %s'
                 if not filepath.exists():
-                    msg += ', no such file'
-                logging.debug(msg, name, thing_loc, exc_info=True)
+                    msg += ', no such file' 
+                logging.debug(msg, name, filepath, exc_info=True)
             else:
-                logging.debug('successfully loaded %s from %s', name, thing_loc)
+                logging.debug('successfully loaded %s from %s', name, filepath)
 
     def save(self):
         '''save to disk, creates directory if necessary'''
