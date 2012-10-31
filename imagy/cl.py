@@ -26,8 +26,8 @@ true_flag('-c', '--clear', help=clear.__doc__)
 true_flag('-l', '--list', help=list_files.__doc__)
 true_flag('-r', '--revert', help=revert.__doc__)
 true_flag('-f', '--files', help=do_files.__doc__)
-true_flag('-q', '--quiet', help='no output')
-true_flag('-m', '--memorystore', help='store internals in memory')
+true_flag('-q', '--quiet', help='suppress output')
+true_flag('-m', '--memorystore', help='maintain file paths in memory')
 true_flag('-v', '--version', help=version.__doc__)
  
 true_flag('--deloriginals', help=delete_originals.__doc__)
@@ -59,8 +59,8 @@ def _main(opts, args):
         store_path = opts.store_path
         if store_path is None:
             imagy_at_home = path('~').expanduser().joinpath(IMAGY_DIR_NAME)
-            logging.info('Storing settings in %s, you can modify this path in config.py under STORE_PATH',
-                         imagy_at_home)
+            msg = 'Using %%s to store configuration%s, you can modify this path in config.py under STORE_PATH' % (' and backup files' if config.KEEP_BACKUPS else '')
+            logging.info(msg, imagy_at_home)
             store_path = imagy_at_home
         store.load(store_path)
         
