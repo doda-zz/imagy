@@ -5,7 +5,6 @@ from imgtest import ImagyTestCase
 from imagy.config import *
 from imagy.core import *
 from imagy.store import Store
-from path import path
 
 import logging
 logging.disable(logging.CRITICAL)
@@ -14,7 +13,7 @@ class CoreTestSuite(ImagyTestCase):
     def setup(self):
         self.s = Store()
         self.copy_images_over()
-    
+
     def check_image(self, img):
         img = self.img_path(img)
         sz = img.size
@@ -26,7 +25,7 @@ class CoreTestSuite(ImagyTestCase):
         orig = store_original(img)
         self.assertTrue(same_file(img, orig))
         orig.remove()
-        
+
     def test_make_path(self):
         self.assertFalse(make_path(__file__).exists())
 

@@ -75,7 +75,7 @@ def handle_file(pth):
             storedat.remove()
         else:
             store_original_location(pth, storedat)
-            
+
 def initialize(*dirs):
     '''Run through the specified directories, optimizing all images'''
     logging.info('looking for not yet optimized files')
@@ -91,7 +91,7 @@ def do_files(*files):
             logging.info('ignoring %s', pth)
         else:
             handle_file(pth)
-            
+
 def list_files():
     '''list all files in internal store'''
     logging.info('optimized files:')
@@ -100,7 +100,7 @@ def list_files():
         print pth, '->', storedat
         i += 1
     logging.info('%s files', i)
-        
+
 def store_original(pth, storedat=None):
     '''Store a copy of the original and return the copy's location'''
     if not storedat:

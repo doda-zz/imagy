@@ -4,9 +4,7 @@ import unittest
 from imgtest import *
 from imagy.config import *
 from imagy.core import *
-# todo: be less like her http://farm3.static.flickr.com/2465/3898431077_b9c5583b12.jpg
-from path import path
-from subprocess import Popen, call
+# todo: be less like http://farm3.static.flickr.com/2465/3898431077_b9c5583b12.jpg
 
 import logging
 logging.disable(logging.CRITICAL)

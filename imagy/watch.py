@@ -17,14 +17,14 @@ class CompressionHandler(FileSystemEventHandler):
         pth = path(event.src_path).abspath()
         if not pth.isdir() and core.correct_ext(pth):
             core.handle_evented_file(pth)
-    
+
     def on_created(self, event):
         if not OPTIMIZE_ON_CREATE:
             return
         super(CompressionHandler, self).on_created(event)
         time.sleep(SECONDS_AFTER_CREATE)
         self.handle_event(event)
-        
+
     def on_modified(self, event):
         if not OPTIMIZE_ON_CHANGE:
             return

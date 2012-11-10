@@ -1,6 +1,5 @@
 from __future__ import division
 from path import path
-from context import imagy
 from subprocess import Popen, call
 import unittest
 from operator import eq
@@ -20,28 +19,28 @@ class ImagyTestCase(unittest.TestCase):
     if QUIET:
         imagy += ['-q']
     imagy_mem = imagy + ['-m']
-        
+
     def __init__(self, *args, **kwargs):
         super(ImagyTestCase, self).__init__(*args, **kwargs)
         self.root = path(__file__)
         self.image_loc = self.root.parent.joinpath('images')
         self.images = dict((k, self.image_loc.joinpath(v)) for k,v in self.image_files.items())
-        
+
     def setUp(self, *args, **kwargs):
         self.__setup(*args, **kwargs)
         if not self.__setup is self.setup:
             self.setup(*args, **kwargs)
-    
+
     def tearDown(self, *args, **kwargs):
         self.__teardown(*args, **kwargs)
         if not self.__teardown is self.teardown:
             self.teardown(*args, **kwargs)
-    
+
     def setup(self):
         self.tmp = path(mkdtemp())
         self.proc = None
     __setup = setup
-        
+
     def teardown(self):
         if self.tmp.exists():
             self.tmp.rmtree()

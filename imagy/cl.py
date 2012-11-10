@@ -18,7 +18,7 @@ FORMAT = '%(asctime)-15s %(levelname)-12s %(message)s'
 def version():
     '''print version of Imagy'''
     print imagy.__version__
-    
+
 parser = optparse.OptionParser('Optimize images')
 true_flag = partial(parser.add_option, action="store_true", default=False)
 
@@ -29,7 +29,7 @@ true_flag('-f', '--files', help=do_files.__doc__)
 true_flag('-q', '--quiet', help='suppress output')
 true_flag('-m', '--memorystore', help='maintain file paths in memory')
 true_flag('-v', '--version', help=version.__doc__)
- 
+
 true_flag('--deloriginals', help=delete_originals.__doc__)
 true_flag('--debug', help='set logging to DEBUG')
 true_flag('--no-init', dest='no_init', help='do not check directories for not yet optimized files')
@@ -45,7 +45,7 @@ opts, args = parser.parse_args(sys.argv[1:])
 def _main(opts, args):
     level = logging.DEBUG if opts.debug else logging.INFO
     logging.basicConfig(format=FORMAT, level=level)
-    
+
     if opts.quiet:
         logging.disable(logging.CRITICAL)
 
@@ -54,7 +54,7 @@ def _main(opts, args):
 
     logging.info('Imagy started')
     logging.debug(map(str, (args, opts)))
-    
+
     if not opts.memorystore:
         store_path = opts.store_path
         if store_path is None:
@@ -63,7 +63,7 @@ def _main(opts, args):
             logging.info(msg, imagy_at_home)
             store_path = imagy_at_home
         store.load(store_path)
-        
+
     args = [path(arg) for arg in args or FILE_PATTERNS if arg]
     run_daemon = opts.run
 
@@ -82,7 +82,7 @@ def _main(opts, args):
         if not opts.no_init:
             initialize(*args)
         watch.watcher.run(*args)
-    
+
 def main():
     try:
         _main(opts, args)
@@ -93,6 +93,6 @@ def main():
             logging.error('unable to save %s', e)
         else:
             logging.debug('saved to %s', store.dir)
-            
+
 if __name__ == '__main__':
     main()
