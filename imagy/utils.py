@@ -1,5 +1,4 @@
 from path import path
-import filecmp
 from tempfile import NamedTemporaryFile
 import os
 from filecmp import _sig, cmp as same_file
@@ -45,4 +44,3 @@ def do(obj, default=None):
     if not config.DRY_RUN:
         return callable_or_value(f)
     return callable_or_value(default)
-        

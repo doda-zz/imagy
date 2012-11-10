@@ -16,7 +16,7 @@ ORIGINAL_IDENTIFIER = '-original'
 
 #image extensions to be picked up by imagy
 IMAGE_EXTENSIONS = ('.jpg', '.jpeg', '.png', '.gif',)
-   
+
 STRIP_JPG_META = True
 
 # the location where imagy stores its internals, if this is `None` at startup, imagy will ask where it should store

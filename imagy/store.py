@@ -29,7 +29,7 @@ class Store(object):
         # if we mark it and ask what to do upon --revert
         SubStore('storedat', dict, 'storedat.json', (path, str)),
         )
-              
+
     def __init__(self, dir=None):
         self.filepaths = {}
         self.clear()
@@ -41,7 +41,7 @@ class Store(object):
         '''initialize data stores to emptiness'''
         for substore in self.STORES:
             setattr(self, substore.name, substore.init())
-            
+
     def load(self):
         '''tries to load files from the dir, if the directory or a file doesn't exist, do nothing'''
         dir = self.dir = dir = path(dir)
@@ -60,7 +60,7 @@ class Store(object):
             except:
                 msg = 'couldnt load %s from %s'
                 if not filepath.exists():
-                    msg += ', no such file' 
+                    msg += ', no such file'
                 logging.debug(msg, name, filepath, exc_info=True)
             else:
                 logging.debug('successfully loaded %s from %s', name, filepath)
@@ -79,7 +79,7 @@ class Store(object):
     def ignore(self, item, n=1):
         '''increment the counter inside ignored, which causes events to that path to be ignored n times'''
         self.ignored[item] += n
-        
+
     def wants(self, pth):
         '''
         Returns if the pth is supposed to be optimized
@@ -97,6 +97,6 @@ class Store(object):
             return False
         # 0 default case
         return True
-            
+
 store = Store()
 
