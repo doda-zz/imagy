@@ -25,7 +25,8 @@ def mktemp():
 
 def file_sig(pth):
     '''
-    a signature of the file, if this remains the same we can be pretty sure that the file hasn't been changed
+    a signature of the file,
+    if this remains the same we can be pretty sure that the file hasn't been changed
     '''
     return _sig(os.stat(pth))
 

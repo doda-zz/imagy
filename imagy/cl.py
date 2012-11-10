@@ -77,8 +77,8 @@ def _main(opts, args):
     else: run_daemon = True
 
     if run_daemon:
-        # if nothing specified so far, just run `smart mode` i.e. initialize the directories
-        # and then run the daemon afterwards
+        # if nothing specified so far, just run `smart mode` i.e. initialize the
+        # directories and then run the daemon afterwards
         if not opts.no_init:
             initialize(*args)
         watch.watcher.run(*args)
