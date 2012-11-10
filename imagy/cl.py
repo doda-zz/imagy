@@ -49,9 +49,6 @@ def _main(opts, args):
     if opts.quiet:
         logging.disable(logging.CRITICAL)
 
-    if opts.trial_run:
-        config.TRIAL_RUN = True
-
     logging.info('Imagy started')
     logging.debug(map(str, (args, opts)))
 
