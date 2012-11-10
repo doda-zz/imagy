@@ -8,7 +8,7 @@ from path import path
 
 running = False
 
-class CompressionHandler(FileSystemEventHandler):
+class OptimizationHandler(FileSystemEventHandler):
     '''Subclassing Watchdog to specify our own handling of files'''
     def handle_event(self, event):
         # convert to an abspath as soon as possible, if relative paths enter the system
@@ -20,14 +20,14 @@ class CompressionHandler(FileSystemEventHandler):
     def on_created(self, event):
         if not OPTIMIZE_ON_CREATE:
             return
-        super(CompressionHandler, self).on_created(event)
+        super(OptimizationHandler, self).on_created(event)
         time.sleep(SECONDS_AFTER_CREATE)
         self.handle_event(event)
 
     def on_modified(self, event):
         if not OPTIMIZE_ON_CHANGE:
             return
-        super(CompressionHandler, self).on_modified(event)
+        super(OptimizationHandler, self).on_modified(event)
         time.sleep(SECONDS_AFTER_CHANGE)
         self.handle_event(event)
 
@@ -66,4 +66,4 @@ class Watcher(object):
             self.observer.stop()
         self.observer.join()
 
-watcher = Watcher(CompressionHandler)
+watcher = Watcher(OptimizationHandler)
