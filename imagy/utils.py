@@ -23,11 +23,11 @@ def mktemp():
     loc.remove()
     return loc
 
-def filesig(pth):
+def file_sig(pth):
     '''
     a signature of the file, if this remains the same we can be pretty sure that the file hasn't been changed
     '''
-    return filecmp._sig(os.stat(pth))
+    return _sig(os.stat(pth))
 
 def dump(store):
     '''for debugging purposes'''
