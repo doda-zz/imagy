@@ -55,7 +55,7 @@ class ImagyTestCase(unittest.TestCase):
         '''
         doing system testing with unittest ... why not?!
         wait upto `sleep` seconds for the test to pass,
-        checking with a generalt function until doing a final test
+        checking with a general function until doing a final test
         with the one associated with the respective TestCase
         '''
         classfun = getattr(self, classfun)
