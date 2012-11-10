@@ -5,16 +5,20 @@ import unittest
 from operator import eq
 from tempfile import mkdtemp
 import time
+from collections import OrderedDict
 
 QUIET = 1
 
 class ImagyTestCase(unittest.TestCase):
-    image_files = {
-        'png':'png.png',
-        'jpg':'jpg.jpg',
-        'gif':'gif.gif',
-        'gifgif':'gifgif.gif'
-        }
+    # use ordereddict so we can selectively only test against a couple of files
+    # and also specify which ones come first in `copy_images_over` (since the
+    # jpg is the fastest to optimize)
+    image_files = OrderedDict([
+        ('jpg', 'jpg.jpg'),
+        ('gifgif', 'gifgif.gif'),
+        ('png', 'png.png'),
+        ('gif', 'gif.gif'),
+        ])
     imagy = ['imagy']
     if QUIET:
         imagy += ['-q']
@@ -24,7 +28,8 @@ class ImagyTestCase(unittest.TestCase):
         super(ImagyTestCase, self).__init__(*args, **kwargs)
         self.root = path(__file__)
         self.image_loc = self.root.parent.joinpath('images')
-        self.images = dict((k, self.image_loc.joinpath(v)) for k,v in self.image_files.items())
+        self.images = OrderedDict((k, self.image_loc.joinpath(v)) for k,v in
+                                   self.image_files.items())
 
     def setUp(self, *args, **kwargs):
         self.__setup(*args, **kwargs)
@@ -68,7 +73,9 @@ class ImagyTestCase(unittest.TestCase):
     def start(self, *args, **kwargs):
         starter = kwargs.setdefault('starter', Popen)
         args = self.imagy + list(args)
-        self.proc = starter(args + [self.tmp])
+        if not '-f' in args:
+            args += [self.tmp]
+        self.proc = starter(args)
 
-    def copy_images_over(self):
-        call(['cp'] + self.images.values() + [self.tmp])
+    def copy_images_over(self, n):
+        call(['cp'] + self.images.values()[:n] + [self.tmp])
