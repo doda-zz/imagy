@@ -59,7 +59,7 @@ class Store(object):
                 value = substore.init((k_type(k), v_type(v)) for k, v in loaded.iteritems())
                 setattr(self, name, value)
             except:
-                msg = 'couldnt load %s from %s'
+                msg = "couldn't load %s from %s"
                 if not filepath.exists():
                     msg += ', no such file'
                 logging.debug(msg, name, filepath, exc_info=True)
