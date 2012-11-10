@@ -5,7 +5,7 @@ from config import *
 
 from utils import make_path, same_file, MARK
 from store import store
-from libsmush import compress_with_touch
+from libsmush import optimize_with_touch
 import watch
 from path import path
 import logging
@@ -59,7 +59,7 @@ def handle_evented_file(pth):
 
 def handle_file(pth):
     '''Optimizes an image and stores an original if KEEP_ORIGINALS is set'''
-    logging.info('Compressing file %s', pth)
+    logging.info('Optimizing file %s', pth)
     if KEEP_ORIGINALS:
         if pth in store.originals:
             # we have previously optimized this file and know where to store it
@@ -68,7 +68,7 @@ def handle_file(pth):
             storedat = store_original(pth)
     # the original gets briefly added to ignore so watchdog doesnt pick it up
     ignore_file(pth)
-    compress_with_touch(pth)
+    optimize_with_touch(pth)
     if KEEP_ORIGINALS:
         # only keep the file if we actually optimized it
         if same_file(storedat, pth):

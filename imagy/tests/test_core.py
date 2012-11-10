@@ -17,7 +17,7 @@ class CoreTestSuite(ImagyTestCase):
     def check_image(self, img):
         img = self.img_path(img)
         sz = img.size
-        compress_with_touch(img)
+        optimize_with_touch(img)
         self.assertTrue(sz >= img.size)
 
     def test_store_original(self):

@@ -11,16 +11,16 @@ from smush import Smush
 from path import path
 
 smusher = Smush(strip_jpg_meta=STRIP_JPG_META, list_only=False, quiet=True, identify_mime=True)
-compress_image = smusher.smush
+optimize_image = smusher.smush
 
-def compress_with_touch(pth, smusher=smusher):
+def optimize_with_touch(pth, smusher=smusher):
     '''
     dirty, but we need to guarantee that the file gets touched to make sure watchdog fires an event
     when the file gets optimized
     '''
     pth = path(pth).abspath()
     sig = file_sig(pth)
-    compress_image(pth)
+    optimize_image(pth)
     if file_sig(pth) == sig:
         # not modified, force it ourselves
         pth.touch()
