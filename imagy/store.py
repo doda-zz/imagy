@@ -45,7 +45,7 @@ class Store(object):
     def load(self):
         '''tries to load files from the dir,
         if the directory or a file doesn't exist, do nothing'''
-        dir = self.dir = dir = path(dir)
+        dir = self.dir = path(dir)
         if not dir.exists():
             return
         for substore in self.STORES:
