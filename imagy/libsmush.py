@@ -5,7 +5,7 @@ the library itself has been modifed to make it work with the binaries included i
 '''
 
 from config import STRIP_JPG_META
-from utils import filesig
+from utils import file_sig
 
 from smush import Smush
 from path import path
@@ -19,8 +19,8 @@ def compress_with_touch(pth, smusher=smusher):
     when the file gets optimized
     '''
     pth = path(pth).abspath()
-    sig = filesig(pth)
+    sig = file_sig(pth)
     compress_image(pth)
-    if filesig(pth) == sig:
+    if file_sig(pth) == sig:
         # not modified, force it ourselves
         pth.touch()
