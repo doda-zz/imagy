@@ -42,7 +42,7 @@ class Store(object):
         for substore in self.STORES:
             setattr(self, substore.name, substore.init())
 
-    def load(self):
+    def load(self, dir):
         '''tries to load files from the dir,
         if the directory or a file doesn't exist, do nothing'''
         dir = self.dir = path(dir)
