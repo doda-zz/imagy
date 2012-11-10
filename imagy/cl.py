@@ -55,7 +55,7 @@ def _main(opts, args):
         store_path = opts.store_path
         if store_path is None:
             store_path = imagy_at_home = path('~').expanduser().joinpath(IMAGY_DIR_NAME)
-            snippet = (' and backup files' if config.KEEP_BACKUPS else '')
+            snippet = (' and backup files' if config.KEEP_ORIGINALS else '')
             msg = 'Using %s to store configuration%s, you can modify this path in config.py under STORE_PATH'
             logging.info(msg, imagy_at_home, snippet)
         store.load(store_path)
