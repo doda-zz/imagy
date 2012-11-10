@@ -43,7 +43,8 @@ class Store(object):
             setattr(self, substore.name, substore.init())
 
     def load(self):
-        '''tries to load files from the dir, if the directory or a file doesn't exist, do nothing'''
+        '''tries to load files from the dir,
+        if the directory or a file doesn't exist, do nothing'''
         dir = self.dir = dir = path(dir)
         if not dir.exists():
             return
@@ -77,7 +78,8 @@ class Store(object):
                 json.dump(getattr(self, substore.name), f)
 
     def ignore(self, item, n=1):
-        '''increment the counter inside ignored, which causes events to that path to be ignored n times'''
+        '''increment the counter inside ignored,
+        which causes events to that path to be ignored n times'''
         self.ignored[item] += n
 
     def wants(self, pth):
