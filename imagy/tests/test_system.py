@@ -26,7 +26,7 @@ class SystemTestSuite(ImagyTestCase):
     def init(self):
         # give time for imagy to start
         self.copy_images_over()
-        self.start('-i', starter=call)
+        self.start(starter=call)
 
     def test_init_revert(self):
         self.init()
