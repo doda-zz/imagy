@@ -23,13 +23,9 @@ class SystemTestSuite(ImagyTestCase):
         valfun = lambda:(8, len(self.tmp.files()))
         self.wait_until_passes(valfun, sleep=20)
 
-    def init(self):
-        # give time for imagy to start
-        self.copy_images_over()
-        self.start(starter=call)
-
     def test_init_revert(self):
-        self.init()
+        self.copy_images_over()
+        self.start('--no-watch', starter=call)
         valfun = lambda:(8, len(self.tmp.files()))
         self.wait_until_passes(valfun)
         self.start('-r', starter=call)
@@ -37,7 +33,8 @@ class SystemTestSuite(ImagyTestCase):
         self.wait_until_passes(valfun)
 
     def test_del_originals(self):
-        self.init()
+        self.copy_images_over()
+        self.start('--no-watch', starter=call)
         valfun = lambda:(8, len(self.tmp.files()))
         self.wait_until_passes(valfun)
         self.start('--deloriginals', starter=call)

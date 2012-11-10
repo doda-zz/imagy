@@ -21,14 +21,12 @@ class OptimizationHandler(FileSystemEventHandler):
         if not OPTIMIZE_ON_CREATE:
             return
         super(OptimizationHandler, self).on_created(event)
-        time.sleep(SECONDS_AFTER_CREATE)
         self.handle_event(event)
 
     def on_modified(self, event):
         if not OPTIMIZE_ON_CHANGE:
             return
         super(OptimizationHandler, self).on_modified(event)
-        time.sleep(SECONDS_AFTER_CHANGE)
         self.handle_event(event)
 
 class Watcher(object):

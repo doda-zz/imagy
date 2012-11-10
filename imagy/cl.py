@@ -34,6 +34,7 @@ true_flag('-n', '--run', help='Run the daemon even though another option has bee
 true_flag('--deloriginals', help=delete_originals.__doc__)
 true_flag('--debug', help='set logging to DEBUG')
 true_flag('--no-init', dest='no_init', help='do not check directories for not yet optimized files')
+true_flag('--no-watch', dest='no_watch', help='do not watch directories for changes')
 
 parser.add_option('-d', '--dir', action="store", default=STORE_PATH, dest="store_path", help='the directory '
                   'within which internal storage resides')
@@ -77,7 +78,8 @@ def _main(opts, args):
         # directories and then run the daemon afterwards
         if not opts.no_init:
             initialize(*args)
-        watch.watcher.run(*args)
+        if not opts.no_watch:
+            watch.watcher.run(*args)
 
 def main():
     try:
