@@ -58,10 +58,10 @@ def _main(opts, args):
     if not opts.memorystore:
         store_path = opts.store_path
         if store_path is None:
-            imagy_at_home = path('~').expanduser().joinpath(IMAGY_DIR_NAME)
-            msg = 'Using %%s to store configuration%s, you can modify this path in config.py under STORE_PATH' % (' and backup files' if config.KEEP_BACKUPS else '')
-            logging.info(msg, imagy_at_home)
-            store_path = imagy_at_home
+            store_path = imagy_at_home = path('~').expanduser().joinpath(IMAGY_DIR_NAME)
+            snippet = (' and backup files' if config.KEEP_BACKUPS else '')
+            msg = 'Using %s to store configuration%s, you can modify this path in config.py under STORE_PATH'
+            logging.info(msg, imagy_at_home, snippet)
         store.load(store_path)
 
     args = [path(arg) for arg in args or FILE_PATTERNS if arg]
