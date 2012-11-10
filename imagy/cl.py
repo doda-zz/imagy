@@ -29,13 +29,12 @@ true_flag('-f', '--files', help=do_files.__doc__)
 true_flag('-q', '--quiet', help='suppress output')
 true_flag('-m', '--memorystore', help='maintain file paths in memory')
 true_flag('-v', '--version', help=version.__doc__)
+true_flag('-n', '--run', help='Run the daemon even though another option has been specified')
 
 true_flag('--deloriginals', help=delete_originals.__doc__)
 true_flag('--debug', help='set logging to DEBUG')
 true_flag('--no-init', dest='no_init', help='do not check directories for not yet optimized files')
 
-parser.add_option('-n', '--run', help='Run the daemon '
-                  'even though another option has been specified')
 parser.add_option('-d', '--dir', action="store", default=STORE_PATH, dest="store_path", help='the directory '
                   'within which internal storage resides')
 #debug
