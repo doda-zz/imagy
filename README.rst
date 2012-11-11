@@ -57,4 +57,4 @@ Dependencies
 - gifsicle
 - jpegtran (on ubuntu in libjpeg-progs)
 - pngcrush
-..- pngnq 
+.. - pngnq
