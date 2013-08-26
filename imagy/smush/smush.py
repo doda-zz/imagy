@@ -105,7 +105,7 @@ class Smush():
         Returns the image format for a file.
         """
         test_command = 'identify -format %%m "%s"' % input
-        args = shlex.split(test_command)
+        args = shlex.split(test_command.encode('utf8'))
 
         try:
             retcode = subprocess.call(args, stdout=self.stdout.opened, stderr=self.stderr.opened)

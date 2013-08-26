@@ -104,7 +104,7 @@ class Optimiser(object):
         as returned by 'identify -format %m'
         """
         test_command = 'identify -format %%m "%s"' % input
-        args = shlex.split(test_command)
+        args = shlex.split(test_command.encode('utf8'))
 
         try:
             retcode = subprocess.call(args, stdout=self.stdout.opened, stderr=self.stderr.opened)
@@ -145,7 +145,7 @@ class Optimiser(object):
             output_file_name = self._get_output_file_name()
             command = self.__replace_placeholders(command, self.input, output_file_name)
             #logging.info("Executing %s" % (command))
-            args = shlex.split(command)
+            args = shlex.split(command.encode('utf8'))
 
             pngnq = command.startswith('pngnq')
             if pngnq:
