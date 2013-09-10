@@ -12,7 +12,7 @@ Imagy relies on a few select `binaries <https://github.com/doda/imagy#dependenci
 
 ::
 
-    sudo apt-get install pngnq pngcrush imagemagick gifsicle libjpeg-progs
+    sudo apt-get install pngnq pngcrush imagemagick gifsicle libjpeg-progs python-pip
     
     pip install path.py
 
